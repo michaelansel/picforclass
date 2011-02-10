@@ -1,0 +1,256 @@
+/**
+ * 
+ */
+
+options {
+  LOOKAHEAD = 3;
+  CHOICE_AMBIGUITY_CHECK = 2;
+  OTHER_AMBIGUITY_CHECK = 1;
+  STATIC = false;
+  DEBUG_PARSER = false;
+  DEBUG_LOOKAHEAD = false;
+  DEBUG_TOKEN_MANAGER = false;
+  ERROR_REPORTING = true;
+  JAVA_UNICODE_ESCAPE = false;
+  UNICODE_INPUT = false;
+  IGNORE_CASE = false;
+  USER_TOKEN_MANAGER = false;
+  USER_CHAR_STREAM = false;
+  BUILD_PARSER = true;
+  BUILD_TOKEN_MANAGER = true;
+  SANITY_CHECK = true;
+  FORCE_LA_CHECK = false;
+}
+
+PARSER_BEGIN(ExpressionParser)
+
+package picassa.model.parser.expression;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import picassa.model.expression.Expression;
+import picassa.model.expression.BinaryExpression;
+import picassa.model.expression.UnaryExpression;
+import picassa.model.expression.ConstantExpression;
+import picassa.model.parser.AbstractParser;
+import java.util.List;
+import java.util.ArrayList;
+
+public final class ExpressionParser extends AbstractParser{}
+
+PARSER_END(ExpressionParser)
+
+SKIP :
+{
+  " "
+| "\t"
+}
+
+TOKEN :
+{
+  < BINARY_OPERATOR: ["*","/","+","-","%","^"] > 
+|
+  < UNARY_OPERATOR: ["!"] >
+|
+  < BEGIN_GROUP: ["("] >
+|
+  < END_GROUP: [")"] >
+|
+  < BEGIN_VECTOR: ["["] >
+|
+  < END_VECTOR: ["]"] >
+|
+  < VECTOR_PARAM_SEPARATOR: [","] >
+|
+  < EXPRESSION_LIST_SEPARATOR: [","] >
+|
+  < #DIGIT: ["0"-"9"] >
+|
+  < #LETTER: ["a"-"z","A"-"Z"] >
+|
+  < VARIABLE: (<LETTER>|<DIGIT>)+ >
+|
+  < HISTORY_VARIABLE: ["$"](<DIGIT>)+ >
+|
+  < ASSIGNMENT_OPERATOR: ["="] >
+|
+  < CONSTANT: (["-"])? (<DIGIT>)+ (["."](<DIGIT>)+)? >
+|
+  < SPACE: [" ","\t"] >
+|
+  < FUNCTION_NAME:
+      "random"
+    | "floor"
+    | "ceil"
+    | "abs"
+    | "clamp"
+    | "wrap"
+    | "sin"
+    | "cos"
+    | "tan"
+    | "atan"
+    | "log"
+    | "rgbToYCrCb"
+    | "yCrCbtoRGB"
+    | "perlinColor"
+    | "perlinBW"
+    | "sum"
+    | "min"
+    | "max"
+    | "average"
+    >
+}
+
+SPECIAL_TOKEN :
+{
+  <SINGLE_LINE_COMMENT: "#" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
+}
+
+/** Root production. */
+Expression Root() :
+{
+  Expression e;
+}
+{
+  e=BinaryExpression()
+  {    return e;
+  }
+}
+
+Expression BinaryExpression() :
+{
+  List<Object> list = new ArrayList<Object>();
+  Token t=null;
+  Expression e1,e2;
+}
+{
+  (<SPACE>)* e1=SimpleExpression()
+  (
+    (<SPACE>)* (t=<BINARY_OPERATOR>)? e2=SimpleExpression()
+    {
+      list.add((t == null || t.image.isEmpty())? BinaryExpression.DEFAULT_OPERATOR : t.image);
+      list.add(e2);
+      t=null;    }
+  )*
+  {
+    if(list.isEmpty())
+      return e1;
+    // else
+    list.add(0,e1); // inject first expression at front of list
+    return BinaryExpression.createFromList(list);
+  }
+}
+
+Expression SimpleExpression() :
+{
+  Expression e;
+}
+{
+  (<SPACE>)* ( e=UnaryExpression() | e=Function() | e=Group() | e=Assignment() | e=SimpleToken() )
+  {    return e;
+  }
+}
+
+Expression UnaryExpression() :
+{
+  Token t;
+  Expression e;
+}
+{
+  t=<UNARY_OPERATOR> (<SPACE>)* e=SimpleExpression()
+  {
+    return UnaryExpression.create(t.image,e);
+  }
+}
+
+Expression Function() :
+{
+  List<Expression> params = new ArrayList<Expression>();
+  Token t;
+}
+{
+  (<SPACE>)* t=<FUNCTION_NAME> <BEGIN_GROUP> params=ExpressionList() <END_GROUP>
+  {
+    return FunctionExpression.createFromList(t.image,params);
+  }
+}
+
+Expression Group() :
+{
+  Expression e;
+}
+{
+  <BEGIN_GROUP> (<SPACE>)* e=Root() (<SPACE>)* <END_GROUP>
+  {    return e;
+  }
+}
+
+Expression Assignment() :
+{
+  Token t;  Expression e;
+}
+{  (<SPACE>)* t=<VARIABLE> (<SPACE>)* <ASSIGNMENT_OPERATOR> (<SPACE>)* e=Root()
+  {
+    // TODO how to interact with variable space?
+    assignVariable(t.image,e);
+    return e;
+  }
+}
+
+Expression SimpleToken() :
+{
+  Expression e;
+}
+{  (<SPACE>)* ( e=Variable() | e=Vector() | e=Constant() )
+  {    return e;
+  }
+}
+
+Expression Variable() :
+{  Token t;
+}
+{  t=<VARIABLE>
+  {    return getVariable(t.image);
+  }
+}
+
+Expression Vector() :{
+  List<String> list = new ArrayList<String>();   Token t;
+}
+{  <BEGIN_VECTOR>
+  (
+    (<SPACE>)* t=<CONSTANT> (<SPACE>)* <VECTOR_PARAM_SEPARATOR>
+    {
+      list.add(t.image);
+    }
+  )*
+  (<SPACE>)* t=<CONSTANT> (<SPACE>)* <END_VECTOR>
+  {    list.add(t.image);
+    return ConstantExpression.createFromList(list);
+  }
+}
+
+Expression Constant() :
+{  Token t;
+}
+{
+  t=<CONSTANT>
+  {
+  	return new ConstantExpression(t.image);
+  }
+}
+
+List<Expression> ExpressionList() :{  List<Expression> list = new ArrayList<Expression>();
+  Expression e;
+}
+{
+  (    (<SPACE>)* e=Root() (<SPACE>)* <EXPRESSION_LIST_SEPARATOR>
+    {
+      list.add(e);
+    }
+  )*
+  (<SPACE>)* e=Root() (<SPACE>)*
+  {    list.add(e);
+    return list;
+  }
+}
