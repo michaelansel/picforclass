@@ -70,9 +70,7 @@ public class Frame extends JFrame
     
     private void echo (String s, MouseEvent e)
     {
-        showMessage(s + " x = " + e.getX() + " y = " + e.getY() + " mod: "+
-                    MouseEvent.getMouseModifiersText(e.getModifiers()) +
-                    " button: "+e.getButton() + " clicks " + e.getClickCount());
+        showMessage(s + " x = " + e.getX() + " y = " + e.getY());
     }
     
     public void makeMouseListener()
