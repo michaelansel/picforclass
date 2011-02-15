@@ -15,7 +15,7 @@ public class RGBColor
 {
     public static final double COLOR_MIN = -1;
     public static final double COLOR_MAX = 1;
-    public static final int JAVA_COLOR_MAX = 255; // should be defined in Color
+    public static final int JAVA_COLOR_MAX = Color.WHITE.getRed();
 
     private double myRed;
     private double myGreen;
@@ -101,11 +101,22 @@ public class RGBColor
     /**
      * Clamps this colors values to its max and min values.
      */
-    public void clamp ()
+    public RGBColor clamp ()
     {
-        myRed = clamp(getRed());
-        myGreen = clamp(getGreen());
-        myBlue = clamp(getBlue());
+        return new RGBColor(clamp(getRed()),
+                            clamp(getGreen()),
+                            clamp(getBlue()));
+    }
+
+
+    /**
+     * Clamps this colors values to its max and min values.
+     */
+    public RGBColor wrap ()
+    {
+        return new RGBColor(wrap(getRed()),
+                            wrap(getGreen()),
+                            wrap(getBlue()));
     }
 
 
@@ -114,10 +125,9 @@ public class RGBColor
      */
     public Color toJavaColor ()
     {
-        clamp();
-        return new Color(toJava(getRed()),
-                         toJava(getGreen()),
-                         toJava(getBlue()));
+        return new Color(toJava(clamp(getRed())),
+                         toJava(clamp(getGreen())),
+                         toJava(clamp(getBlue())));
     }
 
 
@@ -128,7 +138,7 @@ public class RGBColor
     {
         if (o instanceof RGBColor)
         {
-            RGBColor other = (RGBColor)o;
+            RGBColor other = (RGBColor) o;
             return getRed() == other.getRed() &&
                    getGreen() == other.getGreen() &&
                    getBlue() == other.getBlue();
@@ -156,23 +166,36 @@ public class RGBColor
 
 
     /**
+     * Clamps the given value to the Color's max and min values.
+     */
+    private static double wrap (double value)
+    {
+        double range = COLOR_MAX - COLOR_MIN;
+        value %= range;
+        if (value > COLOR_MAX)      return value - range;
+        else if (value < COLOR_MIN) return value + range;
+        else                        return value;
+    }
+
+    
+    /**
      * Converts the given value to the RGB Color's range.
      */
     // note, must be static to be called from constructor
     private static double fromJava (int value)
     {
         double range = COLOR_MAX - COLOR_MIN;
-        return (double)value / JAVA_COLOR_MAX * range + COLOR_MIN;
+        return (double) value / JAVA_COLOR_MAX * range + COLOR_MIN;
     }
 
 
     /**
      * Converts the given value to the Java Color's range.
      */
-    // note, must be static to be called from constructor
+    // note, static to be symmetric with fromJava method
     private static int toJava (double value)
     {
         double range = COLOR_MAX - COLOR_MIN;
-        return (int)((value - COLOR_MIN) / range * JAVA_COLOR_MAX);
+        return (int) ((value - COLOR_MIN) / range * JAVA_COLOR_MAX);
     }
 }

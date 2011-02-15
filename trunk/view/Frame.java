@@ -4,57 +4,53 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import model.Model;
-import model.ParserException;
-import model.Pixmap;
+import javax.swing.JOptionPane;
+import model.*;
+import util.commands.*;
+import util.resources.ResourceManager;
+import view.commands.*;
 
 
 /**
- * A simple frame to organize the view.
+ * A simple frame that sets the organization of the view.
  * 
  * @author Robert C Duvall
  */
 public class Frame extends JFrame
 {
-    // default version number
+    // used for serialization
     private static final long serialVersionUID = 1L;
-    // my state
     private Model myModel;
-    private JLabel myDisplay;
-    private MouseMotionListener myMouseMotionListener;
-    private JTextField myInput;
-    private Dimension mySize;
-    
-   
 
 
-    /**
-     * Create frame with the given title and size for the interior canvas.
-     */
-    public Frame (String title, Dimension size)
+	/**
+	 * Create frame with the given title and size for the interior canvas.
+	 */
+    public Frame (Model model)
     {
-    	makeMouseListener();
-    	
-        mySize = size;
-        // create GUI components
-        myDisplay = makeDisplay(size);
-        myDisplay.addMouseMotionListener(myMouseMotionListener);
-        myInput = makeInput();
-        
-        // add containers to Frame and show it
-        getContentPane().add(myDisplay, BorderLayout.CENTER);
-        getContentPane().add(new JScrollPane(myInput), BorderLayout.SOUTH);
+        setModel(model);
+        // set properties
+        ResourceManager resources = ResourceManager.getInstance();
+        resources.addResourcesFromFile("view");
+        setTitle(resources.getString("title"));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle(title);
+        // create GUI components
+        int[] size = resources.getIntegerArray("size", "x"); 
+        Canvas display = new Canvas(this, new Dimension(size[0], size[1]));
+        Command<Pixmap> evaluator = new ThreadedCommand<Pixmap>(display, new Evaluater());
+        JTextField input = makeInput(display, evaluator);
+        // add commands here
+        CommandPanel commands = new CommandPanel(display);
+        commands.add(resources.getString("open"), new Reader());
+        commands.add(resources.getString("evaluate"), evaluator);
+        commands.add(resources.getString("save"), new Writer());
+        // add our container to Frame and show it
+        getContentPane().add(display, BorderLayout.CENTER);
+        getContentPane().add(commands, BorderLayout.NORTH);
+        getContentPane().add(input, BorderLayout.SOUTH);
         pack();
     }
 
@@ -62,33 +58,6 @@ public class Frame extends JFrame
     /**
      * Updates current model for this view.
      */
-    
-    public void showMessage (String s)
-    {
-        System.out.println(s);
-    }
-    
-    private void echo (String s, MouseEvent e)
-    {
-        showMessage(s + " x = " + e.getX() + " y = " + e.getY());
-    }
-    
-    public void makeMouseListener()
-    {
-    	//System.out.println("Mouse listener");
-    	 myMouseMotionListener = new MouseMotionListener()
-         {
-             public void mouseDragged (MouseEvent e)
-             {
-                 echo("drag", e);
-             }
-             public void mouseMoved (MouseEvent e)
-             {
-                 echo("move", e);
-             }
-         };
-    }
-    
     public void setModel (Model model)
     {
         if (model != null)
@@ -96,12 +65,12 @@ public class Frame extends JFrame
             myModel = model;
         }
     }
-
+    
 
     // Return input area where ENTER evaluates expression.
-    protected JTextField makeInput ()
+    protected JTextField makeInput (final Canvas display, final Command<Pixmap> action)
     {
-        JTextField result = new JTextField();
+        final JTextField result = new JTextField();
         result.setBorder(BorderFactory.createLoweredBevelBorder());
         result.addActionListener(new ActionListener()
             {
@@ -110,7 +79,9 @@ public class Frame extends JFrame
                 {
                     try
                     {
-                        myDisplay.setIcon(myModel.evaluate(myInput.getText(), mySize).toIcon());
+                        display.execute(action);
+                        //Dimension size = display.getSize();
+                        //myModel.evaluate(result.getText(), size.width, size.height);
                     }
                     catch (ParserException e)
                     {
@@ -121,14 +92,6 @@ public class Frame extends JFrame
                     }
                 }
             });
-        return result;
-    }
-
-    // Return display area for results of expression
-    private JLabel makeDisplay (Dimension size)
-    {
-        JLabel result = new JLabel(new Pixmap(size).toIcon());
-        result.setBorder(BorderFactory.createLoweredBevelBorder());
         return result;
     }
 }

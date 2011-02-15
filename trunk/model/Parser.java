@@ -1,182 +1,31 @@
 package model;
 
-import java.util.Arrays;
-import java.util.Stack;
+import java.util.*;
+import model.semantics.Operation;
+import util.reflection.Reflection;
+import util.resources.*;
 
-
-/**
- * Parses a string into an expression tree based on rules for arithmetic.
- *
- * Uses Dijkstra's Shunting-Yard algorithm for converting infix to postfix:
- *   http://en.wikipedia.org/wiki/Shunting_yard_algorithm
- * 
- * @author former student solution
- * @author Robert C. Duvall (added comments, exceptions, some functions)
- */
 public class Parser
 {
-    // different kinds of expressions
-    private static final int CONSTANT = 0;
+    private List<Operation> myPossibleOperations;
 
 
-    /**
-     * Converts given string into expression tree.
-     * 
-     * @param infix space separated infix notation form of an expression
-     * @return expression tree representing the given infix formula
-     */
-    public Expression makeExpression (String infix)
+    public Parser ()
     {
-        Stack<String> operators = new Stack<String>();
-        Stack<Expression> operands = new Stack<Expression>();
-
-        for (String token : tokenize(infix))
+        ResourceManager resources = ResourceManager.getInstance();
+        resources.addResourcesFromFile("syntax");
+        myPossibleOperations = new ArrayList<Operation>();
+        for (String key : resources)
         {
-            int order = orderOfOperation(token);
-            if (order == CONSTANT)
-            {
-                operands.add(createExpression(token));
-            }
-            else
-            {
-                processOperator(token, order, operators, operands);
-            }
-        }
-        processRemainingOperators(operators, operands);
-
-        // all operators handled, should be only one operand left, the result
-        if (operands.size() == 1) return operands.pop();
-        else                      throw ParserException.BAD_SYNTAX;
-    }
-
-
-    /**
-     * Breaks given infix expression into separate tokens. Currently, assumes
-     * spaces exist between each token.
-     * 
-     * @return collection of individual tokens that can be looped over
-     */
-    protected Iterable<String> tokenize (String infix)
-    {
-        return Arrays.asList(infix.split(" "));
-    }
-
-
-    /**
-     * @return true iff operator signifies beginning of group expression
-     */
-    protected boolean isOpenGroup (String operator)
-    {
-        return operator.equals("(");
-    }
-
-
-    /**
-     * @return true iff operator signifies end of group expression
-     */
-    protected boolean isCloseGroup (String operator)
-    {
-        return operator.equals(")");
-    }
-
-
-    /**
-     * @return true if operator signifies beginning or end of group expression
-     */
-    protected boolean isGrouping (String operator)
-    {
-        return isOpenGroup(operator) || isCloseGroup(operator);
-    }
-
-
-    /**
-     * @return relative importance of operators (highest precedence indicates
-     *         that operation should be performed first)
-     */
-    protected int orderOfOperation (String operator)
-    {
-        if (isGrouping(operator)) return 1;
-        else if (operator.equals("+") || operator.equals("-")) return 2;
-        else if (operator.equals("*") || operator.equals("/")) return 3;
-        else return 0;
-    }
-
-
-    // Operator -- convert previous higher order operators before push
-    private void processOperator (String token,
-                                  int order,
-                                  Stack<String> operators,
-                                  Stack<Expression> operands)
-    {
-        if (!isOpenGroup(token))
-        {
-            while (operators.size() > 0 &&
-                   orderOfOperation(operators.peek()) >= order)
-            {
-                String op = operators.pop();
-                if (isOpenGroup(op))
-                {
-                    break;
-                }
-                else
-                {
-                    operands.add(createExpression(op, operands));
-                }
-            }
-        }
-        if (!isCloseGroup(token))
-        {
-            if (operands.size() > 0 && operands.size() >= operators.size())
-            {
-                operators.push(token);
-            }
-            else
-            {
-                throw ParserException.BAD_ARGUMENTS;
-            }
+            myPossibleOperations.add(
+                (Operation)Reflection.createInstance(resources.getString(key)));
         }
     }
-
-    // Resolve any remaining operators
-    private void processRemainingOperators (Stack<String> operators,
-                                            Stack<Expression> operands)
+    
+    public Operation makeExpression (String infix)
     {
-        while (operators.size() > 0)
-        {
-            String op = operators.pop();
-            if (!isOpenGroup(op))
-            {
-                operands.add(createExpression(op, operands));
-            }
-        }
-    }
-
-    // Create expression form a constant value
-    private Expression createExpression (String token)
-    {
-        try
-        {
-            return new Expression(new RGBColor(Double.parseDouble(token)));
-        }
-        catch (NumberFormatException e)
-        {
-            throw ParserException.BAD_TOKEN;
-        }
-    }
-
-    // Create expression from an operator
-    private Expression createExpression (String op, Stack<Expression> operands)
-    {
-        // convert operator into expression
-        if (operands.size() > 1)
-        {
-            Expression right = operands.pop();
-            Expression left = operands.pop();
-            return new Expression(op, left, right);
-        }
-        else
-        {
-            throw ParserException.BAD_ARGUMENTS;
-        }
+        Collections.shuffle(myPossibleOperations);
+        System.out.println(myPossibleOperations.get(0).getClass().getCanonicalName());
+        return myPossibleOperations.get(0);
     }
 }
