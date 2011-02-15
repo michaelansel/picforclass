@@ -21,9 +21,9 @@ public class ParserException extends RuntimeException
 
 
     /**
-     * Create exception with given meesage
+     * Create exception with given message
      *  
-     * @param message explaination of problem
+     * @param message explanation of problem
      */
     public ParserException (String message)
     {

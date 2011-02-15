@@ -1,6 +1,6 @@
 package model;
 
-import java.awt.Dimension;
+import model.semantics.Operation;
 
 
 /**
@@ -28,22 +28,22 @@ public class Model
     /**
      * Evaluate an expression for each point in the image.
      */
-    public Pixmap evaluate (String infix, Dimension size)
+    public Pixmap evaluate (String infix, int width, int height)
     {
-        Pixmap result = new Pixmap(size);
+        Pixmap result = new Pixmap(width, height);
         // create expression to evaluate just once
-        Expression toEval = myParser.makeExpression(infix);
-        // evaluate it for each pixel
-        for (int imageY = 0; imageY < size.height; imageY++)
+        Operation toEval = myParser.makeExpression(infix);
+        // evaluate at each pixel
+        for (int imageY = 0; imageY < height; imageY++)
         {
-            double evalY = imageToDomainScale(imageY, size.height);
+            double evalY = imageToDomainScale(imageY, height);
             RGBColor colorY = new RGBColor(evalY);
-            for (int imageX = 0; imageX < size.width; imageX++)
+            for (int imageX = 0; imageX < width; imageX++)
             {
-                double evalX = imageToDomainScale(imageX, size.width);
+                double evalX = imageToDomainScale(imageX, width);
                 RGBColor colorX = new RGBColor(evalX);
                 result.setColor(imageX, imageY,
-                                toEval.evaluate().toJavaColor());
+                                toEval.evaluate(colorX, colorY).toJavaColor());
             }
         }
         return result;
