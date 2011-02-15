@@ -52,6 +52,8 @@ public class Frame extends JFrame
         getContentPane().add(commands, BorderLayout.NORTH);
         getContentPane().add(input, BorderLayout.SOUTH);
         pack();
+        Debug debugger = new Debug(display);
+        display.addMouseMotionListener(debugger.getListener());
     }
 
 
@@ -65,6 +67,8 @@ public class Frame extends JFrame
             myModel = model;
         }
     }
+    
+    
     
 
     // Return input area where ENTER evaluates expression.

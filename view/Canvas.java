@@ -82,4 +82,12 @@ public class Canvas extends JPanel
         }
         repaint();
     }
+    
+    /**
+     * returns a color from coordinates in the canvas
+     */
+    public Color getColorAtXY(int x, int y)
+    {
+    	return myPixmap.getColor(x, y);
+    }
 }
