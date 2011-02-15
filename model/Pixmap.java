@@ -3,7 +3,6 @@ package model;
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
-
 import javax.imageio.*;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -21,6 +20,7 @@ public class Pixmap
     public static final Dimension DEFAULT_SIZE = new Dimension(300, 300);
     public static final Color DEFAULT_COLOR = Color.BLACK;
     public static final String DEFAULT_NAME = "Default";
+    public static final String DEFAULT_TYPE = "jpg";
 
     private String myFileName;
     private BufferedImage myImage;
@@ -169,6 +169,24 @@ public class Pixmap
 
 
     /**
+     * Returns this pixmap as as an Icon to be used in swing.
+     */
+    public Icon toIcon ()
+    {
+        return new ImageIcon(myImage);
+    }
+
+
+    /**
+     * Returns this pixmap as as an Icon to be used in swing.
+     */
+    public Icon toIcon (int width, int height)
+    {
+        return new ImageIcon(myImage.getScaledInstance(width, height, Image.SCALE_SMOOTH));
+    }
+
+
+    /**
      * Updates this pixmap to reflect colors from the given local file
      * 
      * Note, changes this pixmap's size if necessary
@@ -192,7 +210,7 @@ public class Pixmap
     public void write (String fileName)
         throws IOException
     {
-    	ImageIO.write(myImage, "jpg", new File(fileName));
+    	ImageIO.write(myImage, DEFAULT_TYPE, new File(fileName));
     }
 
 
@@ -204,14 +222,6 @@ public class Pixmap
         pen.drawImage(myImage, 0, 0, mySize.width, mySize.height, null);
     }
 
-
-    /**
-     * Returns this pixmap as as an Icon to be used in swing.
-     */
-    public Icon toIcon ()
-    {
-        return new ImageIcon(myImage);
-    }
 
     private void createImage (int width, int height, Color color)
     {

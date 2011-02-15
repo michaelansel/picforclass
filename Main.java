@@ -1,28 +1,15 @@
-import java.awt.Dimension;
-import java.util.ResourceBundle;
-
 import model.Model;
 import view.Frame;
 
 
 /**
- * 
  * @author Robert Duvall (rcd@cs.duke.edu)
  */
 public class Main
 {
-    public static final Dimension SIZE = new Dimension(400, 400);
-    public static final String language = "english";
-    private static ResourceBundle myResources; 
-
-
     public static void main (String[] args)
     {
-    	myResources = ResourceBundle.getBundle("resources." + language);
-    	
-        Model model = new Model();
-        Frame view = new Frame(myResources.getString("Title"), SIZE);
-        view.setModel(model);
+        Frame view = new Frame(new Model());
         view.setVisible(true);
     }
 }
