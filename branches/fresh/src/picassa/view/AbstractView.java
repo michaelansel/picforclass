@@ -28,9 +28,7 @@ public abstract class AbstractView
     }
 
 
-    public abstract void addExpressionToHistory (Expression expression,
-                                                 Pixmap image,
-                                                 String name);
+    public abstract void addExpressionToHistory (Expression expression);
 
 
     public abstract void updateDisplay (Pixmap image);

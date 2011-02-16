@@ -29,7 +29,7 @@ public class SwingView extends AbstractView
     {
         // set properties
         // TODO Load ResourceBundle 
-        myResources = null;
+        myResources = ResourceBundle.getBundle("picassa.resources.view");
 
         // create Frame
         myFrame = new JFrame();
@@ -57,6 +57,7 @@ public class SwingView extends AbstractView
     private JPanel createCanvas ()
     {
         // TODO create Pixmap-backed panel to display rendered image
+        // move to separate class if necessary
         return null;
     }
 
@@ -65,6 +66,7 @@ public class SwingView extends AbstractView
     {
         // TODO create panel with expression input box and "Evaluate" button
         // "Evaluate" button calls getController().evaluateExpression(inputBox.getValue())
+        // move to separate class if necessary
         return null;
     }
 
@@ -73,6 +75,7 @@ public class SwingView extends AbstractView
     {
         // TODO create history panel for showing past expressions
         // how about a list of HistoryPanelEntries?
+        // move to separate class if necessary
         return null;
     }
 
@@ -80,14 +83,13 @@ public class SwingView extends AbstractView
     private JMenuBar createMenuBar ()
     {
         // TODO create menu bars for loading/saving expressions, generating new expressions, modifying parameters, etc.
+        // move to separate class if necessary
         return null;
     }
 
 
     @Override
-    public void addExpressionToHistory (Expression expression,
-                                        Pixmap image,
-                                        String name)
+    public void addExpressionToHistory (Expression expression)
     {
         // TODO Implement SwingView.addExpressionToHistory
         throw new UnsupportedOperationException("unimplemented functionality");
@@ -97,7 +99,7 @@ public class SwingView extends AbstractView
     @Override
     public void updateDisplay (Pixmap image)
     {
-        // TODO Implement SwingView.updateDisplay
+        // TODO Implement SwingView.displayExpression
         throw new UnsupportedOperationException("unimplemented functionality");
     }
 

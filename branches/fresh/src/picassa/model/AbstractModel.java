@@ -3,7 +3,6 @@
  */
 package picassa.model;
 
-import java.util.List;
 import picassa.controller.AbstractController;
 import picassa.model.expression.Expression;
 import picassa.util.Pixmap;
@@ -55,30 +54,4 @@ public abstract class AbstractModel
         return renderExpression(parseExpression(expression), image);
     }
 
-
-    /**
-     * TODO JavaDoc
-     * 
-     * @param variableName
-     * @param variableValue
-     */
-    public abstract void setVariable (String variableName,
-                                      Variable variableValue);
-
-
-    /**
-     * TODO JavaDoc
-     * 
-     * @return a list of all registered variables
-     */
-    public abstract List<Variable> getVariables ();
-
-
-    /**
-     * Retrieves a variable by name
-     * 
-     * @param name name of variable to retrieve
-     * @return named variable, if found; otherwise, null
-     */
-    public abstract Variable getVariable (String name);
 }
