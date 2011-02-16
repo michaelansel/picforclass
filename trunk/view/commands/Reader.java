@@ -22,9 +22,10 @@ public class Reader extends FileCommand<Pixmap>
 
     /**
      * Open a file for display as the current pixmap.
+     * @throws ViewCommandsException 
      */ 
     @Override
-    public void execute (Pixmap target)
+    public void execute (Pixmap target) throws ViewCommandsException
     {
         try
         {
@@ -37,6 +38,7 @@ public class Reader extends FileCommand<Pixmap>
         catch (IOException e)
         {
             // BUGBUG: do something, file could not be opened
+        	throw ViewCommandsException.BAD_READ_FILE;
         }
     }
 }

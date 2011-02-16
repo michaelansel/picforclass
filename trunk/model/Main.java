@@ -1,4 +1,4 @@
-import model.Model;
+package model;
 import view.Frame;
 
 

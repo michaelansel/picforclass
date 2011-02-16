@@ -32,27 +32,31 @@ public class Frame extends JFrame
     public Frame (Model model)
     {
         setModel(model);
+       
         // set properties
         ResourceManager resources = ResourceManager.getInstance();
         resources.addResourcesFromFile("view");
         setTitle(resources.getString("title"));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         // create GUI components
         int[] size = resources.getIntegerArray("size", "x"); 
         Canvas display = new Canvas(this, new Dimension(size[0], size[1]));
         Command<Pixmap> evaluator = new ThreadedCommand<Pixmap>(display, new Evaluater());
         JTextField input = makeInput(display, evaluator);
+       
         // add commands here
         CommandPanel commands = new CommandPanel(display);
         commands.add(resources.getString("open"), new Reader());
         commands.add(resources.getString("evaluate"), evaluator);
         commands.add(resources.getString("save"), new Writer());
+        
         // add our container to Frame and show it
         getContentPane().add(display, BorderLayout.CENTER);
         getContentPane().add(commands, BorderLayout.NORTH);
         getContentPane().add(input, BorderLayout.SOUTH);
         pack();
-        Debug debugger = new Debug(display);
+        Debug debugger = new Debug(display); //what is this doing?
         display.addMouseMotionListener(debugger.getListener());
     }
 

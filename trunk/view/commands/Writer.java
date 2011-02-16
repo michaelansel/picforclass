@@ -21,9 +21,10 @@ public class Writer extends FileCommand<Pixmap>
 
     /**
      * Save the current image to a chosen file.
+     * @throws ViewCommandsException 
      */
     @Override
-    public void execute (Pixmap target)
+    public void execute (Pixmap target) throws ViewCommandsException
     {
         try
         {
@@ -36,6 +37,7 @@ public class Writer extends FileCommand<Pixmap>
         catch (IOException e)
         {
             // BUGBUG: do something, file could not be opened
+        	throw ViewCommandsException.BAD_WRITE_FILE;
         }
     }
 }
