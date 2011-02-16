@@ -11,9 +11,22 @@ public final class ReflectionException extends RuntimeException
 {
     /**
      * Create exception with given message
-     *  
-     * @param message explanation of problem
      */
+	public static ReflectionException NO_CLASS = 
+		new ReflectionException("There is no class, {0}");
+	
+	public static ReflectionException NO_DEFAULT_CONSTRUCTOR = 
+		new ReflectionException("No default constructor exists for the class {0}");
+	
+	public static ReflectionException NO_MATCHING_CONSTRUCTOR = 
+		new ReflectionException("There is no matching constructor for the class {0}");
+	
+	public static ReflectionException NO_MATCHING_METHOD = 
+		new ReflectionException("No matching method for {0} in {1}");
+	
+	public static ReflectionException NO_MATCHING_FIELD = 
+		new ReflectionException("Missing a field in {0}");
+	
     public ReflectionException (String message, Object ... values)
     {
         super(String.format(message, values));

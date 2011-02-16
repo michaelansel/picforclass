@@ -25,6 +25,7 @@ public class Evaluater implements Command<Pixmap>
     {
         // create the expression to evaluate just once
         Operation toEval = createExpression();
+        
         // evaluate it for each pixel
         Dimension size = target.getSize();
         for (int imageY = 0; imageY < size.height; imageY++)

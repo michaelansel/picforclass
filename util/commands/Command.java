@@ -1,5 +1,7 @@
 package util.commands;
 
+import view.commands.ViewCommandsException;
+
 
 /**
  * An abstract command class that operates on some object.
@@ -10,6 +12,7 @@ public interface Command<T>
 {
     /**
      * Subclasses determine how to update the given object
+     * @throws ViewCommandsException 
      */
-    public void execute (T target);
+    public void execute (T target) throws ViewCommandsException;
 }
