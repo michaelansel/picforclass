@@ -10,9 +10,9 @@ import picassa.model.SimpleModel;
 import picassa.view.AbstractView;
 import picassa.view.SwingView;
 
+
 /**
  * @author Michael Ansel
- *
  */
 public class Picassa
 {
@@ -21,7 +21,7 @@ public class Picassa
         AbstractView view = new SwingView();
         AbstractController controller = new SimpleController();
         AbstractModel model = new SimpleModel();
-        
+
         view.setController(controller);
         controller.setView(view);
         controller.setModel(model);

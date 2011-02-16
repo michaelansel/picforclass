@@ -11,9 +11,9 @@ import javax.swing.JPanel;
 import picassa.model.expression.Expression;
 import picassa.util.Pixmap;
 
+
 /**
  * @author Michael Ansel
- *
  */
 public class SwingView extends AbstractView
 {
@@ -24,39 +24,42 @@ public class SwingView extends AbstractView
     private JPanel myInputPanel;
     private ResourceBundle myResources;
 
-    public SwingView()
+
+    public SwingView ()
     {
         // set properties
         // TODO Load ResourceBundle 
         myResources = null;
-        
+
         // create Frame
         myFrame = new JFrame();
         myFrame.setTitle(myResources.getString("FrameTitle"));
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         // create GUI components
         myMenuBar = createMenuBar();
         myCanvas = createCanvas();
         myHistoryPanel = createHistoryPanel();
         myInputPanel = createInputPanel();
-        
+
         // register GUI components
         myFrame.setJMenuBar(myMenuBar);
-        myFrame.getContentPane().add(myCanvas,          BorderLayout.NORTH);
-        myFrame.getContentPane().add(myHistoryPanel,    BorderLayout.CENTER);
-        myFrame.getContentPane().add(myInputPanel,      BorderLayout.SOUTH);
+        myFrame.getContentPane().add(myCanvas, BorderLayout.NORTH);
+        myFrame.getContentPane().add(myHistoryPanel, BorderLayout.CENTER);
+        myFrame.getContentPane().add(myInputPanel, BorderLayout.SOUTH);
         myFrame.pack();
-        
+
         // show it!
         myFrame.setVisible(true);
     }
+
 
     private JPanel createCanvas ()
     {
         // TODO create Pixmap-backed panel to display rendered image
         return null;
     }
+
 
     private JPanel createInputPanel ()
     {
@@ -65,6 +68,7 @@ public class SwingView extends AbstractView
         return null;
     }
 
+
     private JPanel createHistoryPanel ()
     {
         // TODO create history panel for showing past expressions
@@ -72,11 +76,13 @@ public class SwingView extends AbstractView
         return null;
     }
 
+
     private JMenuBar createMenuBar ()
     {
         // TODO create menu bars for loading/saving expressions, generating new expressions, modifying parameters, etc.
         return null;
     }
+
 
     @Override
     public void addExpressionToHistory (Expression expression,
@@ -87,12 +93,14 @@ public class SwingView extends AbstractView
         throw new UnsupportedOperationException("unimplemented functionality");
     }
 
+
     @Override
     public void updateDisplay (Pixmap image)
     {
         // TODO Implement SwingView.updateDisplay
         throw new UnsupportedOperationException("unimplemented functionality");
     }
+
 
     @Override
     public Pixmap getDisplay ()

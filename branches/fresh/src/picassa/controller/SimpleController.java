@@ -5,9 +5,9 @@ package picassa.controller;
 
 import java.io.File;
 
+
 /**
  * @author Michael Ansel
- *
  */
 public class SimpleController extends AbstractController
 {

@@ -7,9 +7,9 @@ import java.util.List;
 import picassa.model.expression.Expression;
 import picassa.util.Pixmap;
 
+
 /**
  * @author Michael Ansel
- *
  */
 public class SimpleModel extends AbstractModel
 {
@@ -26,7 +26,8 @@ public class SimpleModel extends AbstractModel
 
 
     /**
-     * @see picassa.model.AbstractModel#renderExpression(picassa.model.expression.Expression, picassa.util.Pixmap)
+     * @see picassa.model.AbstractModel#renderExpression(picassa.model.expression.Expression,
+     *      picassa.util.Pixmap)
      */
     @Override
     public Pixmap renderExpression (Expression expression, Pixmap image)
@@ -37,7 +38,8 @@ public class SimpleModel extends AbstractModel
 
 
     /**
-     * @see picassa.model.AbstractModel#setVariable(java.lang.String, picassa.model.Variable)
+     * @see picassa.model.AbstractModel#setVariable(java.lang.String,
+     *      picassa.model.Variable)
      */
     @Override
     public void setVariable (String variableName, Variable variableValue)
