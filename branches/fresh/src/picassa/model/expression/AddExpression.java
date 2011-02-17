@@ -4,13 +4,13 @@
 package picassa.model.expression;
 
 /**
- * @author Michael
+ * @author Michael Ansel
  */
 public class AddExpression extends BinaryExpression
 {
 
     public static final char TOKEN = '+';
-    public static final String TOKEN_REGEX = String.format("[%s]",TOKEN);
+    public static final String TOKEN_REGEX = String.format("[%s]", TOKEN);
 
 
     public AddExpression (Expression subExpressionA, Expression subExpressionB)

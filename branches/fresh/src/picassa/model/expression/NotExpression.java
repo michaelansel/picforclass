@@ -4,7 +4,7 @@
 package picassa.model.expression;
 
 /**
- * @author Michael
+ * @author Michael Ansel
  */
 public class NotExpression extends UnaryExpression
 {

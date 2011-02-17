@@ -16,10 +16,7 @@ public abstract class AbstractView
     private AbstractController myController;
 
 
-    public void setController (AbstractController controller)
-    {
-        myController = controller;
-    }
+    public abstract void addExpressionToHistory (Expression expression);
 
 
     public AbstractController getController ()
@@ -28,14 +25,17 @@ public abstract class AbstractView
     }
 
 
-    public abstract void addExpressionToHistory (Expression expression);
-
-
-    public abstract void updateDisplay (Pixmap image);
-
-
     /**
      * @return the currently displayed image
      */
     public abstract Pixmap getDisplay ();
+
+
+    public void setController (AbstractController controller)
+    {
+        myController = controller;
+    }
+
+
+    public abstract void updateDisplay (Pixmap image);
 }

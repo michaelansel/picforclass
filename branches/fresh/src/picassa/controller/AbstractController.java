@@ -17,30 +17,6 @@ public abstract class AbstractController
     private AbstractModel myModel;
 
 
-    public void setView (AbstractView view)
-    {
-        myView = view;
-    }
-
-
-    public AbstractView getView ()
-    {
-        return myView;
-    }
-
-
-    public void setModel (AbstractModel model)
-    {
-        myModel = model;
-    }
-
-
-    public AbstractModel getModel ()
-    {
-        return myModel;
-    }
-
-
     /**
      * Requests evaluation of the provided expression by the model and updates
      * the model accordingly. Model calls: * parseExpression() - parse the input
@@ -55,8 +31,32 @@ public abstract class AbstractController
     public abstract void evaluateExpression (String expression);
 
 
+    public AbstractModel getModel ()
+    {
+        return myModel;
+    }
+
+
+    public AbstractView getView ()
+    {
+        return myView;
+    }
+
+
     public abstract void loadStateFromFile (File file);
 
 
     public abstract void saveStateToFile (File file);
+
+
+    public void setModel (AbstractModel model)
+    {
+        myModel = model;
+    }
+
+
+    public void setView (AbstractView view)
+    {
+        myView = view;
+    }
 }

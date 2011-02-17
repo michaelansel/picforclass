@@ -4,9 +4,8 @@
 package picassa.model;
 
 import picassa.model.expression.Expression;
-import picassa.model.parser.SimpleLexer;
+import picassa.model.parser.ParserException;
 import picassa.model.parser.SimpleParser;
-import picassa.model.parser.SimpleParser.ParserException;
 import picassa.util.Pixmap;
 
 
@@ -24,7 +23,7 @@ public class SimpleModel extends AbstractModel
     {
         try
         {
-            return SimpleParser.run(SimpleLexer.tokenize(expression));
+            return SimpleParser.parse(expression);
         }
         catch (ParserException e)
         {

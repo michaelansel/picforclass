@@ -54,18 +54,17 @@ public class SwingView extends AbstractView
     }
 
 
-    private JPanel createCanvas ()
+    @Override
+    public void addExpressionToHistory (Expression expression)
     {
-        // TODO create Pixmap-backed panel to display rendered image
-        // move to separate class if necessary
-        return null;
+        // TODO Implement SwingView.addExpressionToHistory
+        throw new UnsupportedOperationException("unimplemented functionality");
     }
 
 
-    private JPanel createInputPanel ()
+    private JPanel createCanvas ()
     {
-        // TODO create panel with expression input box and "Evaluate" button
-        // "Evaluate" button calls getController().evaluateExpression(inputBox.getValue())
+        // TODO create Pixmap-backed panel to display rendered image
         // move to separate class if necessary
         return null;
     }
@@ -80,6 +79,15 @@ public class SwingView extends AbstractView
     }
 
 
+    private JPanel createInputPanel ()
+    {
+        // TODO create panel with expression input box and "Evaluate" button
+        // "Evaluate" button calls getController().evaluateExpression(inputBox.getValue())
+        // move to separate class if necessary
+        return null;
+    }
+
+
     private JMenuBar createMenuBar ()
     {
         // TODO create menu bars for loading/saving expressions, generating new expressions, modifying parameters, etc.
@@ -89,9 +97,9 @@ public class SwingView extends AbstractView
 
 
     @Override
-    public void addExpressionToHistory (Expression expression)
+    public Pixmap getDisplay ()
     {
-        // TODO Implement SwingView.addExpressionToHistory
+        // TODO Implement SwingView.getDisplay
         throw new UnsupportedOperationException("unimplemented functionality");
     }
 
@@ -100,14 +108,6 @@ public class SwingView extends AbstractView
     public void updateDisplay (Pixmap image)
     {
         // TODO Implement SwingView.displayExpression
-        throw new UnsupportedOperationException("unimplemented functionality");
-    }
-
-
-    @Override
-    public Pixmap getDisplay ()
-    {
-        // TODO Implement SwingView.getDisplay
         throw new UnsupportedOperationException("unimplemented functionality");
     }
 }

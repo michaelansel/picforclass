@@ -15,42 +15,6 @@ import java.util.Map;
 public abstract class Expression
 {
     /**
-     * Evaluate all child expressions (substituting variables as necessary) and
-     * return a List of numbers
-     * 
-     * @param variables Map of variable names to numeric values
-     * @return List of output values
-     */
-    public abstract List<Number> evaluate (Map<String, Number> variables);
-
-
-    protected List<Number> evaluateValueLists (List<Number> ... valueLists)
-    {
-        int length = valueLists[0].size();
-        for (List<Number> valueList : valueLists)
-            if (valueList.size() != length) throw new IllegalArgumentException("All value lists must be the same size.");
-
-        List<Number> results = new ArrayList<Number>();
-
-        List<Number> values = new ArrayList<Number>();
-        for (int i = 0; i < length; i++)
-        {
-            values.clear();
-            for (List<Number> valueList : valueLists)
-                values.add(valueList.get(i));
-            results.add(evaluateValues((Number[]) values.toArray()));
-        }
-        return results;
-    }
-
-
-    protected abstract Number evaluateValues (Number ... values);
-
-
-    protected abstract Collection<Expression> getExpressions ();
-
-
-    /**
      * Recursively build an easy to view representation of the Expression tree
      * starting at startExpression.
      * 
@@ -89,4 +53,40 @@ public abstract class Expression
         }
         return result;
     }
+
+
+    /**
+     * Evaluate all child expressions (substituting variables as necessary) and
+     * return a List of numbers
+     * 
+     * @param variables Map of variable names to numeric values
+     * @return List of output values
+     */
+    public abstract List<Number> evaluate (Map<String, Number> variables);
+
+
+    protected List<Number> evaluateValueLists (List<Number> ... valueLists)
+    {
+        int length = valueLists[0].size();
+        for (List<Number> valueList : valueLists)
+            if (valueList.size() != length) throw new IllegalArgumentException("All value lists must be the same size.");
+
+        List<Number> results = new ArrayList<Number>();
+
+        List<Number> values = new ArrayList<Number>();
+        for (int i = 0; i < length; i++)
+        {
+            values.clear();
+            for (List<Number> valueList : valueLists)
+                values.add(valueList.get(i));
+            results.add(evaluateValues((Number[]) values.toArray()));
+        }
+        return results;
+    }
+
+
+    protected abstract Number evaluateValues (Number ... values);
+
+
+    protected abstract Collection<Expression> getExpressions ();
 }

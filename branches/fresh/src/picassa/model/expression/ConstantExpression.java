@@ -4,11 +4,10 @@
 package picassa.model.expression;
 
 import java.util.ArrayList;
-import picassa.model.parser.SimpleLexer.TokenMatch;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import picassa.model.parser.AbstractLexer.TokenMatch;
 
 
 /**
@@ -16,14 +15,15 @@ import java.util.Map;
  */
 public class ConstantExpression extends Expression
 {
-    private List<Number> myConstants;
+    public static final String TOKEN_REGEX = "[0-9]+([.][0-9]+)?";
 
 
-    public ConstantExpression (String term)
+    public static Expression create (List<Object> objects)
     {
-        myConstants = new ArrayList<Number>();
-        myConstants.add(Double.parseDouble(term));
+        return new ConstantExpression(((TokenMatch) objects.get(0)).value);
     }
+
+    private List<Number> myConstants;
 
 
     public ConstantExpression (List<String> terms)
@@ -31,6 +31,13 @@ public class ConstantExpression extends Expression
         myConstants = new ArrayList<Number>();
         for (String term : terms)
             myConstants.add(Double.parseDouble(term));
+    }
+
+
+    public ConstantExpression (String term)
+    {
+        myConstants = new ArrayList<Number>();
+        myConstants.add(Double.parseDouble(term));
     }
 
 
@@ -71,11 +78,5 @@ public class ConstantExpression extends Expression
         result.deleteCharAt(result.length() - 1);
         result.append("]");
         return result.toString();
-    }
-
-
-    public static Expression create (List<Object> objects)
-    {
-        return new ConstantExpression(((TokenMatch)objects.get(0)).value);
     }
 }

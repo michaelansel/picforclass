@@ -3,106 +3,72 @@
  */
 package picassa.model.parser;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.regex.MatchResult;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import picassa.model.expression.ConstantExpression;
+import picassa.model.expression.FunctionExpression;
+
 
 /**
  * @author Michael Ansel
- *
  */
-public class SimpleLexer
+public class SimpleLexer extends AbstractLexer
 {
-    /**
-     * Set of Tokens valid immediately prior to a binary operator
-     */
-    protected static final Set<Token> ValidBinaryOperatorPredecessorTokens = new HashSet<Token>();
-    static{
-        Token[] tokens = {Token.EndGroup, Token.Constant};
-        ValidBinaryOperatorPredecessorTokens.addAll(Arrays.asList(tokens));
-    }
-    enum Token
+    public enum Token implements IToken
     {
-        BinaryOperator("[+]"),
-        NegativeOperator("[-]"),  // this needs to be handled differently from other BinaryOperators
+        BinaryOperator("[+]"), NegativeOperator("[-]"), // this needs to be handled differently from other BinaryOperators
         BeginGroup("[(]"),
         EndGroup("[)]"),
         BeginVector("[\\[]"),
         EndVector("[\\]]"),
         Delimiter("[,]"),
-        FunctionName("(random)|(floor)"),
+        FunctionName(FunctionExpression.TOKEN_REGEX),
         Variable("[a-zA-Z]+"),
-        Constant("[0-9]+([.][0-9]+)?")
-        ;
+        Constant(ConstantExpression.TOKEN_REGEX);
 
         private final String myRegex;
         private Pattern myPattern;
-        
-        Token(final String regex)
+
+
+        Token (final String regex)
         {
             myRegex = regex;
             myPattern = Pattern.compile(String.format("\\A(%s).*\\z", myRegex));
         }
-        
-        Pattern getPattern()
+
+
+        @Override
+        public Pattern getPattern ()
         {
             return myPattern;
         }
-        
-        TokenMatch makeToken(String value)
+
+
+        @Override
+        public TokenMatch makeToken (String value)
         {
             return new TokenMatch(this, value);
         }
     }
-    public static class TokenMatch
+
+    /**
+     * Set of Tokens valid immediately prior to a binary operator
+     */
+    protected static final Set<Token> ValidBinaryOperatorPredecessorTokens =
+        new HashSet<Token>();
+    static
     {
-        public Token token;
-        public String value;
-        TokenMatch(Token t, String v)
-        {
-            token = t;
-            value = v;
-        }
-        
-        @Override
-        public String toString()
-        {
-            return String.format("TokenMatch(%s,\"%s\")", token.toString(), value);
-        }
+        Token[] tokens =
+            { Token.EndVector, Token.EndGroup, Token.Variable, Token.Constant };
+        ValidBinaryOperatorPredecessorTokens.addAll(Arrays.asList(tokens));
     }
-    
-    public static List<TokenMatch> tokenize(String input)
+
+
+    public SimpleLexer (String input)
     {
-        StringBuilder remainder = new StringBuilder(input);
-        List<TokenMatch> results = new ArrayList<TokenMatch>();
-        while(remainder.length()>0)
-        {
-            List<TokenMatch> matches = new ArrayList<TokenMatch>();
-            for(Token t : Token.values())
-            {
-                Matcher matcher = t.getPattern().matcher(remainder.toString());
-//                System.out.println("Testing \""+remainder.toString()+"\" against pattern: "+matcher.pattern().pattern());
-                if(!matcher.matches())
-                    continue;
-                matches.add(t.makeToken(matcher.group(1)));
-            }
-            
-            if(matches.size() == 0)
-                throw new RuntimeException("No matching tokens found!\nRemainder: "+remainder.toString());
-            
-            TokenMatch bestMatch = matches.get(0);
-            for(TokenMatch match : matches)
-                if(match.value.length() > bestMatch.value.length())
-                    bestMatch = match;
-            
-            results.add(bestMatch);
-            remainder.delete(0, bestMatch.value.length());
-        }
-        return results;
+        super(input);
+        setTokens(Token.values());
     }
 }

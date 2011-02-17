@@ -17,12 +17,6 @@ public abstract class AbstractModel
     protected AbstractController myController;
 
 
-    public void setController (AbstractController controller)
-    {
-        myController = controller;
-    }
-
-
     /**
      * TODO JavaDoc
      * 
@@ -52,6 +46,12 @@ public abstract class AbstractModel
     public Pixmap renderExpression (String expression, Pixmap image)
     {
         return renderExpression(parseExpression(expression), image);
+    }
+
+
+    public void setController (AbstractController controller)
+    {
+        myController = controller;
     }
 
 }

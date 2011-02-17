@@ -14,6 +14,12 @@ import java.util.Map;
  */
 public abstract class UnaryExpression extends Expression
 {
+    public static UnaryExpression create (String token, Expression expression)
+    {
+        // TODO Create appropriate UnaryExpression subclass based on token
+        return new NotExpression(expression);
+    }
+
     private Expression mySubExpression;
 
 
@@ -23,18 +29,14 @@ public abstract class UnaryExpression extends Expression
     }
 
 
-    public static UnaryExpression create (String token, Expression expression)
-    {
-        // TODO Create appropriate UnaryExpression subclass based on token
-        return new NotExpression(expression);
-    }
-
-
     @Override
     public List<Number> evaluate (Map<String, Number> variables)
     {
         return evaluateValueLists(mySubExpression.evaluate(variables));
     }
+
+
+    protected abstract Number evaluateValue (Number value);
 
 
     @Override
@@ -51,9 +53,6 @@ public abstract class UnaryExpression extends Expression
         if (values.length != 1) throw new IllegalArgumentException("BinaryExpressions can only evaluate 1 value");
         return evaluateValue(values[0]);
     }
-
-
-    protected abstract Number evaluateValue (Number value);
 
 
     @Override
