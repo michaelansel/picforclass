@@ -141,7 +141,7 @@ public abstract class AbstractParser
     }
 
 
-    protected Object Optional (final Object object)
+    protected AbstractParserRule Optional (final Object object)
     {
         return new AbstractParserRule()
         {
@@ -173,6 +173,12 @@ public abstract class AbstractParser
                 throw new UnsupportedOperationException();
             }
         };
+    }
+
+
+    protected AbstractParserRule Optional (Object ... objects)
+    {
+        return Optional(Sequence(objects));
     }
 
 

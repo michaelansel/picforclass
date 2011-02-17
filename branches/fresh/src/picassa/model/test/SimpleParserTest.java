@@ -46,12 +46,20 @@ public class SimpleParserTest extends TestCase
                   "((-1.0+2.0)+-3.0)");
         
         // functions
-        testParse("random(3+(-1+-2.0+7))",
-                  "random((3.0+(-1.0+(-2.0+7.0))))");
+        testParse("abs(3+(-1+-2.0+7))",
+                  "abs((3.0+(-1.0+(-2.0+7.0))))");
         
         // nested functions
-        testParse("random(3+abs(-10+-2.0+7)+9)",
-                  "random((3.0+(abs((-10.0+(-2.0+7.0)))+9.0)))");
+        testParse("3+abs(-10+-2.0+7)+9",
+                  "(3.0+(abs((-10.0+(-2.0+7.0)))+9.0))");
+        
+        // no-arg functions
+        testParse("3+random()+9",
+                  "(3.0+(random()+9.0))");
+        
+        // var-arg functions
+        testParse("3+sum(1,random(),sum(1,2,3))+9",
+                  "(3.0+(sum(1.0, random(), sum(1.0, 2.0, 3.0))+9.0))");
     }
 
 

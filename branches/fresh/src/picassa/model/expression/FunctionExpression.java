@@ -23,6 +23,7 @@ public class FunctionExpression extends Expression
         METHODS = new HashMap<String, Method>();
         METHODS.put("random", getStaticMethod("java.lang.Math.random", null));
         METHODS.put("abs", getStaticMethod("java.lang.Math.abs", double.class));
+        METHODS.put("sum", getStaticMethod("picassa.util.Math.sum", Number[].class));
     }
 
     public static final String TOKEN_REGEX;

@@ -119,7 +119,13 @@ public class SimpleParser extends AbstractParser
     };
 
     private AbstractParserRule Root = new AbstractParserRule()
-    {};
+    {
+        @Override
+        public void initializeRule ()
+        {
+            setRule(BinaryExpression);
+        }
+    };
 
     private AbstractParserRule Function = new AbstractParserRule()
     {
@@ -150,8 +156,9 @@ public class SimpleParser extends AbstractParser
         {
             setRule(Sequence(SimpleLexer.Token.FunctionName,
                              SimpleLexer.Token.BeginGroup,
-                             Root,
-                             ZeroOrMore(SimpleLexer.Token.Delimiter, Root),
+                             Optional(Root,
+                                      ZeroOrMore(SimpleLexer.Token.Delimiter,
+                                                 Root)),
                              SimpleLexer.Token.EndGroup));
         }
     };
@@ -161,9 +168,14 @@ public class SimpleParser extends AbstractParser
     {
         super(lexer);
 
-        Root.setRule(BinaryExpression);
         AbstractParserRule[] rules =
-            { BinaryExpression, SimpleExpression, Function, Group, Constant };
+            {
+                    Root,
+                    BinaryExpression,
+                    SimpleExpression,
+                    Function,
+                    Group,
+                    Constant };
         for (AbstractParserRule rule : rules)
             rule.initializeRule();
     }
