@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Stack;
 import java.util.regex.Pattern;
+import picassa.model.parser.SimpleLexer.TokenMatch;
 
 
 /**
@@ -122,9 +123,9 @@ public abstract class BinaryExpression extends Expression
         for (Object token : list)
         {
             if (token instanceof Expression) output.add((Expression) token);
-            else if (token instanceof String)
+            else if (token instanceof TokenMatch)
             {
-                BinaryOperator o1 = new BinaryOperator((String) token);
+                BinaryOperator o1 = new BinaryOperator(((TokenMatch)token).value);
                 while (!stack.isEmpty() && o1.compareTo(stack.peek()) < 0)
                 {
                     output.add(stack.pop());

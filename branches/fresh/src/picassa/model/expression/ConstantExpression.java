@@ -4,6 +4,7 @@
 package picassa.model.expression;
 
 import java.util.ArrayList;
+import picassa.model.parser.SimpleLexer.TokenMatch;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -21,7 +22,7 @@ public class ConstantExpression extends Expression
     public ConstantExpression (String term)
     {
         myConstants = new ArrayList<Number>();
-        myConstants.add(Integer.parseInt(term));
+        myConstants.add(Double.parseDouble(term));
     }
 
 
@@ -29,7 +30,7 @@ public class ConstantExpression extends Expression
     {
         myConstants = new ArrayList<Number>();
         for (String term : terms)
-            myConstants.add(Integer.parseInt(term));
+            myConstants.add(Double.parseDouble(term));
     }
 
 
@@ -70,5 +71,11 @@ public class ConstantExpression extends Expression
         result.deleteCharAt(result.length() - 1);
         result.append("]");
         return result.toString();
+    }
+
+
+    public static Expression create (List<Object> objects)
+    {
+        return new ConstantExpression(((TokenMatch)objects.get(0)).value);
     }
 }

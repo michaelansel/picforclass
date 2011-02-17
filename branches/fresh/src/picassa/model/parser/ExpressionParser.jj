@@ -194,7 +194,7 @@ Expression Assignment() :
 {
   Token t;  Expression e;
 }
-{  (<SPACE>)* t=<VARIABLE> (<SPACE>)* <ASSIGNMENT_OPERATOR> (<SPACE>)* e=Root()
+{  t=<VARIABLE> (<SPACE>)* <ASSIGNMENT_OPERATOR> (<SPACE>)* e=Root()
   {
     return new VariableExpression(t.image,e);
   }
@@ -205,7 +205,7 @@ Expression SimpleToken() :
 {
   Expression e;
 }
-{  (<SPACE>)* ( /*e=Variable() | e=Vector() |*/ e=Constant() )
+{  /*e=Variable() | e=Vector() |*/ e=Constant()
   {    return e;
   }
 }

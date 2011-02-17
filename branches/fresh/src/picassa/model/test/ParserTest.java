@@ -3,16 +3,21 @@
  */
 package picassa.model.test;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import picassa.model.expression.Expression;
 import picassa.model.parser.AbstractParser;
-import picassa.model.parser.ExpressionParser;
+import picassa.model.parser.SimpleLexer;
+import picassa.model.parser.SimpleParser;
+import picassa.model.parser.SimpleParser.ParserException;
 
 
 /**
- * @author Michael
+ * @author Michael Ansel
  */
 public class ParserTest extends TestCase
 {
@@ -33,11 +38,11 @@ public class ParserTest extends TestCase
     {
         try
         {
-            Expression.printExpressionTree(AbstractParser.runParser(ExpressionParser.class,
-                                                                    "(123 + 456)"));
+            Expression.printExpressionTree(SimpleParser.run(SimpleLexer.tokenize("(123 + 456)")));
         }
-        catch (Exception e)
+        catch (ParserException e)
         {
+            // TODO Auto-generated catch block
             e.printStackTrace();
             fail(e.toString());
         }
