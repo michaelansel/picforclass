@@ -65,6 +65,17 @@ public abstract class Expression
     public abstract List<Number> evaluate (Map<String, Number> variables);
 
 
+    protected final List<Number> evaluateValueLists (List<List<Number>> valueLists)
+    {
+        // Because Java doesn't let you create an array of generics...
+        @SuppressWarnings("unchecked")
+        List<Number>[] valueListArray = new List[valueLists.size()];
+        for (int i = 0; i < valueListArray.length; i++)
+            valueListArray[i] = valueLists.get(i);
+        return evaluateValueLists(valueListArray);
+    }
+
+
     protected List<Number> evaluateValueLists (List<Number> ... valueLists)
     {
         int length = valueLists[0].size();
@@ -79,13 +90,17 @@ public abstract class Expression
             values.clear();
             for (List<Number> valueList : valueLists)
                 values.add(valueList.get(i));
-            results.add(evaluateValues((Number[]) values.toArray()));
+            Number[] numbers = {};
+            results.add(evaluateValues(values.toArray(numbers)));
         }
         return results;
     }
 
 
-    protected abstract Number evaluateValues (Number ... values);
+    protected Number evaluateValues (Number ... values)
+    {
+        throw new UnsupportedOperationException("Not implemented");
+    }
 
 
     protected abstract Collection<Expression> getExpressions ();

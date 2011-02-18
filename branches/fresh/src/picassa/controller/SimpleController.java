@@ -4,6 +4,10 @@
 package picassa.controller;
 
 import java.io.File;
+import picassa.model.expression.Expression;
+import picassa.model.parser.ParserException;
+import picassa.util.Pixmap;
+import picassa.view.AbstractView;
 
 
 /**
@@ -18,8 +22,21 @@ public class SimpleController extends AbstractController
     @Override
     public void evaluateExpression (String expression)
     {
-        // TODO Auto-generated method stub
-
+        try
+        {
+            Expression parsedExpression =
+                getModel().parseExpression(expression);
+            Pixmap renderedExpression =
+                getModel().renderExpression(parsedExpression,
+                                            getView().getDisplay());
+            getView().updateDisplay(renderedExpression);
+            // TODO addExpressionToHistory()
+        }
+        catch (ParserException e)
+        {
+            e.printStackTrace();
+            getView().updateDisplay(AbstractView.RENDER_FAILED_IMAGE);
+        }
     }
 
 
@@ -29,7 +46,7 @@ public class SimpleController extends AbstractController
     @Override
     public void loadStateFromFile (File file)
     {
-        // TODO Auto-generated method stub
+        // TODO Implement SimpleController.loadStateFromFile
 
     }
 
@@ -40,7 +57,7 @@ public class SimpleController extends AbstractController
     @Override
     public void saveStateToFile (File file)
     {
-        // TODO Auto-generated method stub
+        // TODO Implement SimpleController.saveStateToFile
 
     }
 

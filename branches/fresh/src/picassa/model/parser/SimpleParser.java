@@ -59,7 +59,7 @@ public class SimpleParser extends AbstractParser
         @Override
         public void initializeRule ()
         {
-            setRule(FirstOf(Function, Group, Constant));
+            setRule(FirstOf(Function, Group, Vector));
         }
     };
 
@@ -82,6 +82,31 @@ public class SimpleParser extends AbstractParser
             setRule(Sequence(SimpleLexer.Token.BeginGroup,
                              BinaryExpression,
                              SimpleLexer.Token.EndGroup));
+        }
+    };
+
+    private AbstractParserRule Vector = new AbstractParserRule()
+    {
+        @Override
+        public ParserResult evaluate () throws ParserException
+        {
+            ParserResult subResult = myRule.evaluate();
+            List<Object> resultList = subResult.getList();
+            resultList.remove(0); // BeginVector
+            resultList.remove(resultList.size() - 1); // EndVector
+            ParserResult result = new ParserResult();
+            result.setExpression(ConstantExpression.create(resultList));
+            return result;
+        }
+
+
+        @Override
+        public void initializeRule ()
+        {
+            setRule(Sequence(SimpleLexer.Token.BeginVector,
+                             Constant,
+                             ZeroOrMore(SimpleLexer.Token.Delimiter, Constant),
+                             SimpleLexer.Token.EndVector));
         }
     };
 
@@ -145,8 +170,8 @@ public class SimpleParser extends AbstractParser
                 else if (o instanceof Expression) parameters.add((Expression) o);
                 else parseError();
             }
-            result.setExpression(new FunctionExpression(functionName.value,
-                                                        parameters));
+            result.setExpression(FunctionExpression.create(functionName.value,
+                                                           parameters));
             return result;
         }
 
@@ -175,6 +200,7 @@ public class SimpleParser extends AbstractParser
                     SimpleExpression,
                     Function,
                     Group,
+                    Vector,
                     Constant };
         for (AbstractParserRule rule : rules)
             rule.initializeRule();

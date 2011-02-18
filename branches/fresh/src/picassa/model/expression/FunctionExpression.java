@@ -3,57 +3,100 @@
  */
 package picassa.model.expression;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 
 /**
  * @author Michael Ansel
  */
-public class FunctionExpression extends Expression
+public abstract class FunctionExpression extends Expression
 {
 
-    private static final Map<String, Method> METHODS;
-    static
-    {
-        METHODS = new HashMap<String, Method>();
-        METHODS.put("random", getStaticMethod("java.lang.Math.random", null));
-        METHODS.put("abs", getStaticMethod("java.lang.Math.abs", double.class));
-        METHODS.put("sum", getStaticMethod("picassa.util.Math.sum", Number[].class));
-    }
-
+    private static final Map<String, Class<? extends FunctionExpression>> TOKEN_CLASS_MAP;
     public static final String TOKEN_REGEX;
     static
     {
+        Map<String, Class<? extends FunctionExpression>> tokenClassMap =
+            new HashMap<String, Class<? extends FunctionExpression>>();
+
+        List<String> tokenClassNames =
+            Arrays.asList(ResourceBundle.getBundle("picassa.resources.syntax")
+                                        .getString("FunctionExpression.Functions")
+                                        .split(","));
         StringBuilder regex = new StringBuilder();
-        for (String method : METHODS.keySet())
-            regex.append(String.format("|(%s)", method));
+
+        for (String tokenClassName : tokenClassNames)
+        {
+            try
+            {
+                Class<? extends FunctionExpression> tokenClass =
+                    (Class<? extends FunctionExpression>) Class.forName(tokenClassName);
+                String functionName =
+                    (String) tokenClass.getField("FUNCTION_NAME").get(null);
+                tokenClassMap.put(functionName, tokenClass);
+                regex.append(String.format("|(%s)", functionName));
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                throw new RuntimeException("Failed to initialize FunctionExpression class: " +
+                                           e.toString());
+            }
+        }
+        TOKEN_CLASS_MAP = tokenClassMap;
         regex.deleteCharAt(0); // remove leading |
         TOKEN_REGEX = regex.toString();
     }
 
 
-    private static Method getStaticMethod (String fullName,
-                                           Class<?> parameterTypes)
+    public static Expression create (String functionName,
+                                     List<Expression> parameters)
     {
-        String className = fullName.substring(0, fullName.lastIndexOf("."));
-        String methodName =
-            fullName.substring(fullName.lastIndexOf(".") + 1, fullName.length());
+        if (!TOKEN_CLASS_MAP.containsKey(functionName)) throw new IllegalArgumentException("Unknown function: " +
+                                                                                           functionName);
+        Class<? extends FunctionExpression> newClass =
+            TOKEN_CLASS_MAP.get(functionName);
+
+        int parameterCount = getParameterCount(functionName);
+
+        if (parameterCount != -1 && parameterCount != parameters.size()) throw new IllegalArgumentException(String.format("Mismatched parameter count: expected %d, got %d",
+                                                                                                                          parameterCount,
+                                                                                                                          parameters.size()));
+
         try
         {
-            if (parameterTypes == null) return Class.forName(className)
-                                                    .getMethod(methodName);
-            else return Class.forName(className).getMethod(methodName,
-                                                           parameterTypes);
+            return newClass.getConstructor(String.class, List.class)
+                           .newInstance(functionName, parameters);
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            throw new RuntimeException(e.toString());
+            throw new RuntimeException("Error creating new instance: " +
+                                       e.toString());
+        }
+    }
+
+
+    public static int getParameterCount (String functionName)
+    {
+        Class<? extends FunctionExpression> klass =
+            TOKEN_CLASS_MAP.get(functionName);
+
+        try
+        {
+            return (Integer) (klass.getField("PARAMETER_COUNT").get(null));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException("Error retrieving parameter count for " +
+                                       functionName + ": " + e.toString());
         }
     }
 
@@ -61,17 +104,11 @@ public class FunctionExpression extends Expression
 
     private List<Expression> myParameters;
 
-    private Method myMethod;
-
 
     public FunctionExpression (String functionName, List<Expression> parameters)
     {
         myFunctionName = functionName;
         myParameters = parameters;
-
-        if (!METHODS.containsKey(functionName)) throw new IllegalArgumentException("Unknown function: " +
-                                                                                   functionName);
-        myMethod = METHODS.get(functionName);
     }
 
 
@@ -81,22 +118,8 @@ public class FunctionExpression extends Expression
         List<List<Number>> valueLists = new ArrayList<List<Number>>();
         for (Expression expression : myParameters)
             valueLists.add(expression.evaluate(variables));
-        return evaluateValueLists((List<Number>[]) valueLists.toArray());
-    }
 
-
-    @Override
-    protected Number evaluateValues (Number ... values)
-    {
-        try
-        {
-            return (Number) myMethod.invoke(null, (Object) values);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            throw new RuntimeException(e.toString());
-        }
+        return evaluateValueLists(valueLists);
     }
 
 

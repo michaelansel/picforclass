@@ -20,17 +20,29 @@ public class ConstantExpression extends Expression
 
     public static Expression create (List<Object> objects)
     {
-        return new ConstantExpression(((TokenMatch) objects.get(0)).value);
+        if (objects.size() == 1 && objects.get(0) instanceof TokenMatch) return new ConstantExpression(((TokenMatch) objects.get(0)).value);
+        else if (objects.size() > 1)
+        {
+            List<Object> values = new ArrayList<Object>();
+            for (Object o : objects)
+                if (o instanceof ConstantExpression) values.addAll(((ConstantExpression) o).myConstants);
+            return new ConstantExpression(values);
+        }
+        throw new IllegalArgumentException("Invalid input: " +
+                                           objects.toString());
     }
 
     private List<Number> myConstants;
 
 
-    public ConstantExpression (List<String> terms)
+    public ConstantExpression (List<Object> terms)
     {
         myConstants = new ArrayList<Number>();
-        for (String term : terms)
-            myConstants.add(Double.parseDouble(term));
+        for (Object term : terms)
+            if (term instanceof String) myConstants.add(Double.parseDouble((String) term));
+            else if (term instanceof Number) myConstants.add((Number) term);
+            else throw new IllegalArgumentException("Invalid input: " +
+                                                    term.toString());
     }
 
 
@@ -45,13 +57,6 @@ public class ConstantExpression extends Expression
     public List<Number> evaluate (Map<String, Number> variables)
     {
         return new ArrayList<Number>(myConstants);
-    }
-
-
-    @Override
-    protected Number evaluateValues (Number ... values)
-    {
-        throw new UnsupportedOperationException("Constant is a non-combinatorial Expression");
     }
 
 

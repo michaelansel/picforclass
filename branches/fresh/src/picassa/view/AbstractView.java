@@ -13,6 +13,9 @@ import picassa.util.Pixmap;
  */
 public abstract class AbstractView
 {
+    final public static Pixmap RENDER_FAILED_IMAGE =
+        new Pixmap(300, 300, new java.awt.Color(255, 0, 0)); // TODO
+
     private AbstractController myController;
 
 

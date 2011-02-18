@@ -5,6 +5,7 @@ package picassa.model;
 
 import picassa.controller.AbstractController;
 import picassa.model.expression.Expression;
+import picassa.model.parser.ParserException;
 import picassa.util.Pixmap;
 
 
@@ -22,8 +23,10 @@ public abstract class AbstractModel
      * 
      * @param expression
      * @return
+     * @throws ParserException
      */
-    public abstract Expression parseExpression (String expression);
+    public abstract Expression parseExpression (String expression)
+        throws ParserException;
 
 
     /**
@@ -33,7 +36,8 @@ public abstract class AbstractModel
      * @param base image to use as start point for rendering
      * @return
      */
-    public abstract Pixmap renderExpression (Expression expression, Pixmap image);
+    public abstract Pixmap renderExpression (Expression expression,
+                                             Pixmap baseImage);
 
 
     /**
@@ -42,8 +46,10 @@ public abstract class AbstractModel
      * @param expression expression to parse and render
      * @param image base image to use as start point for rendering
      * @return rendered expression
+     * @throws ParserException
      */
     public Pixmap renderExpression (String expression, Pixmap image)
+        throws ParserException
     {
         return renderExpression(parseExpression(expression), image);
     }

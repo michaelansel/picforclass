@@ -4,6 +4,7 @@
 package picassa.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.ResourceBundle;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -43,10 +44,10 @@ public class SwingView extends AbstractView
         myInputPanel = createInputPanel();
 
         // register GUI components
-        myFrame.setJMenuBar(myMenuBar);
+        //TODO myFrame.setJMenuBar(myMenuBar);
         myFrame.getContentPane().add(myCanvas, BorderLayout.NORTH);
-        myFrame.getContentPane().add(myHistoryPanel, BorderLayout.CENTER);
-        myFrame.getContentPane().add(myInputPanel, BorderLayout.SOUTH);
+        //TODO myFrame.getContentPane().add(myHistoryPanel, BorderLayout.CENTER);
+        //TODO myFrame.getContentPane().add(myInputPanel, BorderLayout.SOUTH);
         myFrame.pack();
 
         // show it!
@@ -64,9 +65,8 @@ public class SwingView extends AbstractView
 
     private JPanel createCanvas ()
     {
-        // TODO create Pixmap-backed panel to display rendered image
-        // move to separate class if necessary
-        return null;
+        // TODO Hardcoded values are bad!
+        return new Canvas(myFrame, new Dimension(300, 300));
     }
 
 
@@ -99,15 +99,13 @@ public class SwingView extends AbstractView
     @Override
     public Pixmap getDisplay ()
     {
-        // TODO Implement SwingView.getDisplay
-        throw new UnsupportedOperationException("unimplemented functionality");
+        return ((Canvas) myCanvas).getPixmap();
     }
 
 
     @Override
     public void updateDisplay (Pixmap image)
     {
-        // TODO Implement SwingView.displayExpression
-        throw new UnsupportedOperationException("unimplemented functionality");
+        ((Canvas) myCanvas).setPixmap(image);
     }
 }
