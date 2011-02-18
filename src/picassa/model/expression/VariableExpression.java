@@ -31,8 +31,7 @@ public class VariableExpression extends Expression
     {
         if (!variables.containsKey(myName)) throw new RuntimeException(String.format("Variable \"%s\" not found!",
                                                                                      myName));
-        Number[] numbers = { variables.get(myName) };
-        return Arrays.asList(numbers);
+        return Arrays.asList(new Number[] { variables.get(myName) });
     }
 
 

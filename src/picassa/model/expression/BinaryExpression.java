@@ -216,8 +216,7 @@ public abstract class BinaryExpression extends Expression
     @Override
     protected Collection<Expression> getExpressions ()
     {
-        Expression[] expressions = { mySubExpressionA, mySubExpressionB };
-        return Arrays.asList(expressions);
+        return Arrays.asList(new Expression[] { mySubExpressionA, mySubExpressionB });
     }
 
 

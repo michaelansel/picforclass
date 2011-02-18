@@ -28,8 +28,7 @@ public class RandomFunctionExpression extends FunctionExpression
     @Override
     public List<Number> evaluate (Map<String, Number> variables)
     {
-        Number[] results = { Math.random(), Math.random(), Math.random() };
-        return Arrays.asList(results);
+        return Arrays.asList(new Number[] { Math.random(), Math.random(), Math.random() });
     }
 
 }
