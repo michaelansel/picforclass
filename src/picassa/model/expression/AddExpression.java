@@ -26,7 +26,7 @@ public class AddExpression extends BinaryExpression
     @Override
     protected Number mergeValues (Number valueA, Number valueB)
     {
-        return valueA.intValue() + valueB.intValue();
+        return valueA.doubleValue() + valueB.doubleValue();
     }
 
 
