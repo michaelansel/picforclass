@@ -20,7 +20,7 @@ public class NotExpression extends UnaryExpression
     @Override
     protected Number evaluateValue (Number value)
     {
-        return value.intValue() * -1;
+        return value.doubleValue() * -1;
     }
     
     @Override
