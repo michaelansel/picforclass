@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Stack;
 import java.util.regex.Pattern;
-import picassa.model.parser.AbstractLexer.TokenMatch;
+import util.parser.AbstractLexer.TokenMatch;
 
 
 /**
@@ -171,7 +171,7 @@ public abstract class BinaryExpression extends Expression
             Expression a = (Expression) stack.pop();
             Expression b = (Expression) stack.pop();
             BinaryOperator op = (BinaryOperator) postfix.remove(0);
-            Expression result = op.newExpression(b, a); // reversed on stack, so "un-reverse"
+            Expression result = op.newExpression(b, a); // operands reversed on stack, so "un-reverse"
             stack.push(result);
         }
         assert (stack.size() == 1);

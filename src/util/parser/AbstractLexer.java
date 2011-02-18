@@ -1,7 +1,7 @@
 /**
  * 
  */
-package picassa.model.parser;
+package util.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ public abstract class AbstractLexer
         public String value;
 
 
-        TokenMatch (IToken t, String v)
+        public TokenMatch (IToken t, String v)
         {
             token = t;
             value = v;

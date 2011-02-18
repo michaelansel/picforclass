@@ -5,8 +5,8 @@ package picassa.model;
 
 import picassa.controller.AbstractController;
 import picassa.model.expression.Expression;
-import picassa.model.parser.ParserException;
 import picassa.util.Pixmap;
+import util.parser.ParserException;
 
 
 /**

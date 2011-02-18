@@ -7,8 +7,8 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import picassa.model.expression.Expression;
-import picassa.model.parser.ParserException;
 import picassa.model.parser.SimpleParser;
+import util.parser.ParserException;
 
 
 /**
@@ -68,6 +68,7 @@ public class SimpleParserTest extends TestCase
     {
         Expression parsedExpression = SimpleParser.parse(expression);
         assertEquals(expected, parsedExpression.toString());
+        assertEquals(expected, SimpleParser.parse(parsedExpression.toString().replaceAll("\\s", "")).toString());
         System.out.println(parsedExpression.toString() + " => " +
                            parsedExpression.evaluate(null));
     }

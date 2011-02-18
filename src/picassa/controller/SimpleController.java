@@ -5,9 +5,9 @@ package picassa.controller;
 
 import java.io.File;
 import picassa.model.expression.Expression;
-import picassa.model.parser.ParserException;
 import picassa.util.Pixmap;
 import picassa.view.AbstractView;
+import util.parser.ParserException;
 
 
 /**

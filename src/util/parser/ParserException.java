@@ -1,4 +1,4 @@
-package picassa.model.parser;
+package util.parser;
 
 public class ParserException extends Exception
 {

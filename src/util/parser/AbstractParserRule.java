@@ -1,7 +1,7 @@
 /**
  * 
  */
-package picassa.model.parser;
+package util.parser;
 
 /**
  * @author Michael Ansel

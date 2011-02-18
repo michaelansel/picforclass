@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import picassa.model.expression.Expression;
-import picassa.model.parser.ParserException;
 import picassa.model.parser.SimpleParser;
 import picassa.util.Pixmap;
 import picassa.util.RGBColor;
+import util.parser.ParserException;
 
 
 /**
