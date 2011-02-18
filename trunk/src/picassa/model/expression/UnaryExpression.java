@@ -58,8 +58,7 @@ public abstract class UnaryExpression extends Expression
     @Override
     public Collection<Expression> getExpressions ()
     {
-        Expression[] expressions = { mySubExpression };
-        return Arrays.asList(expressions);
+        return Arrays.asList(new Expression[] { mySubExpression });
     }
 
 

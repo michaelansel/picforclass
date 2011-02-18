@@ -90,8 +90,7 @@ public abstract class Expression
             values.clear();
             for (List<Number> valueList : valueLists)
                 values.add(valueList.get(i));
-            Number[] numbers = {};
-            results.add(evaluateValues(values.toArray(numbers)));
+            results.add(evaluateValues(values.toArray(new Number[] {})));
         }
         return results;
     }
