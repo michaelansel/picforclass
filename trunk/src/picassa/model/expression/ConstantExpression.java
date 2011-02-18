@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import picassa.model.parser.AbstractLexer.TokenMatch;
+import util.parser.AbstractLexer.TokenMatch;
 
 
 /**

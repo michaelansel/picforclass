@@ -8,7 +8,12 @@ import java.util.List;
 import picassa.model.expression.ConstantExpression;
 import picassa.model.expression.Expression;
 import picassa.model.expression.FunctionExpression;
-import picassa.model.parser.AbstractLexer.TokenMatch;
+import util.parser.AbstractLexer;
+import util.parser.AbstractParser;
+import util.parser.AbstractParserRule;
+import util.parser.ParserException;
+import util.parser.AbstractLexer.TokenMatch;
+import util.parser.ParserResult;
 
 
 /**
@@ -19,7 +24,7 @@ public class SimpleParser extends AbstractParser
     public static Expression parse (String input) throws ParserException
     {
         SimpleParser parser = new SimpleParser(new SimpleLexer(input));
-        Expression result = parser.Root.evaluate().getExpression();
+        Expression result = ((ExpressionParserResult) parser.Root.evaluate()).getExpression();
         if (parser.hasNextToken()) parser.parseError();
         return result;
     }
@@ -29,7 +34,7 @@ public class SimpleParser extends AbstractParser
         @Override
         public ParserResult evaluate () throws ParserException
         {
-            ParserResult result = myRule.evaluate();
+            ExpressionParserResult result = new ExpressionParserResult(myRule.evaluate());
             if (result.getExpression() != null) return result;
             if (result.getList().size() == 1 &&
                 result.getList().get(0) instanceof Expression)
@@ -68,9 +73,8 @@ public class SimpleParser extends AbstractParser
         @Override
         public ParserResult evaluate () throws ParserException
         {
-            ParserResult subResult = myRule.evaluate();
-            ParserResult result = new ParserResult();
-            for (Object o : subResult.getList())
+            ExpressionParserResult result = new ExpressionParserResult(myRule.evaluate());
+            for (Object o : result.getList())
                 if (o instanceof Expression) result.setExpression((Expression) o);
             return result;
         }
@@ -80,7 +84,7 @@ public class SimpleParser extends AbstractParser
         public void initializeRule ()
         {
             setRule(Sequence(SimpleLexer.Token.BeginGroup,
-                             BinaryExpression,
+                             Root,
                              SimpleLexer.Token.EndGroup));
         }
     };
@@ -94,7 +98,7 @@ public class SimpleParser extends AbstractParser
             List<Object> resultList = subResult.getList();
             resultList.remove(0); // BeginVector
             resultList.remove(resultList.size() - 1); // EndVector
-            ParserResult result = new ParserResult();
+            ExpressionParserResult result = new ExpressionParserResult();
             result.setExpression(ConstantExpression.create(resultList));
             return result;
         }
@@ -115,8 +119,8 @@ public class SimpleParser extends AbstractParser
         @Override
         public ParserResult evaluate () throws ParserException
         {
-            ParserResult result = myRule.evaluate();
-            List<Object> results = result.getList();
+            ParserResult subResult = myRule.evaluate();
+            List<Object> results = subResult.getList();
             if (results.size() == 2 &&
                 results.get(0) instanceof TokenMatch &&
                 ((TokenMatch) results.get(0)).token == SimpleLexer.Token.NegativeOperator)
@@ -127,6 +131,8 @@ public class SimpleParser extends AbstractParser
                 b.value = a.value + b.value;
             }
             if (results.size() != 1) parseError();
+            
+            ExpressionParserResult result = new ExpressionParserResult(subResult);
             result.setExpression(ConstantExpression.create(results));
             return result;
         }
@@ -157,8 +163,8 @@ public class SimpleParser extends AbstractParser
         @Override
         public ParserResult evaluate () throws ParserException
         {
-            ParserResult result = myRule.evaluate();
-            List<Object> results = result.getList();
+            ParserResult subResult = myRule.evaluate();
+            List<Object> results = subResult.getList();
             TokenMatch functionName = (TokenMatch) results.remove(0);
             results.remove(0); // BeginGroup
             results.remove(results.size() - 1); // EndGroup
@@ -170,6 +176,7 @@ public class SimpleParser extends AbstractParser
                 else if (o instanceof Expression) parameters.add((Expression) o);
                 else parseError();
             }
+            ExpressionParserResult result = new ExpressionParserResult(subResult);
             result.setExpression(FunctionExpression.create(functionName.value,
                                                            parameters));
             return result;

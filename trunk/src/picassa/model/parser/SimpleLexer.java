@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import picassa.model.expression.ConstantExpression;
 import picassa.model.expression.FunctionExpression;
+import util.parser.AbstractLexer;
+import util.parser.IToken;
 
 
 /**
@@ -51,18 +53,6 @@ public class SimpleLexer extends AbstractLexer
         {
             return new TokenMatch(this, value);
         }
-    }
-
-    /**
-     * Set of Tokens valid immediately prior to a binary operator
-     */
-    protected static final Set<Token> ValidBinaryOperatorPredecessorTokens =
-        new HashSet<Token>();
-    static
-    {
-        Token[] tokens =
-            { Token.EndVector, Token.EndGroup, Token.Variable, Token.Constant };
-        ValidBinaryOperatorPredecessorTokens.addAll(Arrays.asList(tokens));
     }
 
 

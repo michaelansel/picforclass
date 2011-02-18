@@ -1,10 +1,10 @@
 /**
  * 
  */
-package picassa.model.parser;
+package util.parser;
 
 import java.util.regex.Pattern;
-import picassa.model.parser.AbstractLexer.TokenMatch;
+import util.parser.AbstractLexer.TokenMatch;
 
 
 /**

@@ -1,12 +1,12 @@
 /**
  * 
  */
-package picassa.model.parser;
+package util.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import picassa.model.parser.AbstractLexer.TokenMatch;
+import util.parser.AbstractLexer.TokenMatch;
 
 
 /**
@@ -92,20 +92,22 @@ public abstract class AbstractParser
             public ParserResult evaluate () throws ParserException
             {
                 ParserCheckpoint checkpoint = null;
-                ParserResult result = new ParserResult();
                 for (AbstractParserRule rule : myRules)
                 {
                     checkpoint = storeCheckpoint();
+                    System.out.println("--Testing: "+rule.toString());
                     try
                     {
-                        result.append(rule.evaluate());
+                        ParserResult result = rule.evaluate();
                         System.out.println("FirstOf returning: " +
                                            result.toString());
                         return result;
                     }
                     catch (ParserException e)
                     {
+                        System.out.println("--Caught! Restoring from checkpoint...");
                         restoreCheckpoint(checkpoint);
+                        System.out.println("Tokens: "+myTokens.toString());
                     }
                 }
                 parseError();
@@ -156,7 +158,7 @@ public abstract class AbstractParser
                 checkpoint = storeCheckpoint();
                 try
                 {
-                    result.append(myRule.evaluate());
+                    result.addResult(myRule.evaluate());
                 }
                 catch (ParserException e)
                 {
@@ -216,8 +218,8 @@ public abstract class AbstractParser
                 {
                     if (isToken(object) && hasNextToken() &&
                         peekNextToken().token == object) result.add(consumeNextToken());
-                    else if (object instanceof AbstractParserRule) result.append(((AbstractParserRule) object).evaluate());
-                    else if (object instanceof ParserResult) result.append((ParserResult) object); // results from a lower level, pass through untouched
+                    else if (object instanceof AbstractParserRule) result.addResult(((AbstractParserRule) object).evaluate());
+                    else if (object instanceof ParserResult) result.addResult((ParserResult) object); // results from a lower level, pass through untouched
                     else parseError();
                 }
                 System.out.println("Sequence returning: " + result.toString());
@@ -257,7 +259,7 @@ public abstract class AbstractParser
                     checkpoint = storeCheckpoint();
                     try
                     {
-                        result.append(mySequence.evaluate());
+                        result.addResult(mySequence.evaluate());
                     }
                     catch (ParserException e)
                     {
