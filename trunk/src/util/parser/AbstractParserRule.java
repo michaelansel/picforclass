@@ -8,7 +8,7 @@ package util.parser;
  */
 public abstract class AbstractParserRule
 {
-    protected AbstractParserRule myRule = null;
+    private AbstractParserRule myRule = null;
 
 
     public ParserResult evaluate () throws ParserException
