@@ -3,6 +3,8 @@
  */
 package picassa.model.test;
 
+import java.util.HashMap;
+import java.util.Map;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +44,9 @@ public class SimpleParserTest extends TestCase
 
         // negatives
         testParse("(-1+2)+-3", "((-1.0+2.0)+-3.0)");
+        
+        // unary expressions
+        testParse("!(!!1+2)+!3", "(!((!(!(1.0))+2.0))+!(3.0))");
 
         // vectors
         testParse("([-1,2,3.0]+[2,-1,3])+[3,-2.0,1]",
@@ -60,8 +65,10 @@ public class SimpleParserTest extends TestCase
         // var-arg functions
         testParse("[1,2,3]+sum([1,2,3],random(),sum([1,2,3],[1,2,3],[1,2,3]))+[7,8,9]",
                   "([1.0,2.0,3.0]+(sum([1.0,2.0,3.0], random(), sum([1.0,2.0,3.0], [1.0,2.0,3.0], [1.0,2.0,3.0]))+[7.0,8.0,9.0]))");
+        
+        // variables
+        testParse("1+x+y+2", "(1.0+(x+(y+2.0)))");
     }
-
 
     private void testParse (String expression, String expected)
         throws ParserException
@@ -69,8 +76,12 @@ public class SimpleParserTest extends TestCase
         Expression parsedExpression = SimpleParser.parse(expression);
         assertEquals(expected, parsedExpression.toString());
         assertEquals(expected, SimpleParser.parse(parsedExpression.toString().replaceAll("\\s", "")).toString());
+        
+        Map<String, Number> variables = new HashMap<String, Number>();
+        variables.put("x", 1);
+        variables.put("y", 7);
         System.out.println(parsedExpression.toString() + " => " +
-                           parsedExpression.evaluate(null));
+                           parsedExpression.evaluate(variables));
     }
 
 }
