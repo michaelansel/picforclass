@@ -59,7 +59,7 @@ public class SimpleParser extends AbstractParser
         @Override
         public void initializeRule ()
         {
-            setRule(FirstOf(Function, Group, Vector));
+            setRule(FirstOf(Function, Group, Vector, Constant));
         }
     };
 

@@ -25,7 +25,7 @@ public class SimpleLexer extends AbstractLexer
         EndVector("[\\]]"),
         Delimiter("[,]"),
         FunctionName(FunctionExpression.TOKEN_REGEX),
-        Variable("[a-zA-Z]+"),
+        Variable("([$][0-9]+)|([a-zA-Z]+)"),
         Constant(ConstantExpression.TOKEN_REGEX);
 
         private final String myRegex;
