@@ -28,7 +28,7 @@ public class RandomFunction extends NoArgFunction
 
 
     @Override
-    public Vector<Number> evaluate (Map<String, Number> variables)
+    public Vector<Number> evaluate (Map<String, Expression> variables)
     {
         return new Vector<Number>(Math.random());
     }

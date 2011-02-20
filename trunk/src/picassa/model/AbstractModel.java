@@ -6,6 +6,7 @@ package picassa.model;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
+import picassa.model.expression.ConstantExpression;
 import picassa.model.expression.Expression;
 import picassa.util.Pixmap;
 import util.parser.ParserException;
@@ -70,16 +71,16 @@ public abstract class AbstractModel
         int height = baseImage.getSize().height;
         int width = baseImage.getSize().width;
         Pixmap result = new Pixmap(baseImage);
-        Map<String, Number> variables = new HashMap<String, Number>();
+        Map<String, Expression> variables = new HashMap<String, Expression>();
         // evaluate at each pixel
         for (int imageY = 0; imageY < height; imageY++)
         {
             double y = imageToDomainScale(imageY, height);
-            variables.put("y", y);
+            variables.put("y", new ConstantExpression(y));
             for (int imageX = 0; imageX < width; imageX++)
             {
                 double x = imageToDomainScale(imageX, width);
-                variables.put("x", x);
+                variables.put("x", new ConstantExpression(x));
 
                 Color color = renderExpression(expression, variables);
                 result.setColor(imageX, imageY, color);
@@ -105,5 +106,5 @@ public abstract class AbstractModel
 
 
     protected abstract Color renderExpression (Expression expression,
-                                               Map<String, Number> variables);
+                                               Map<String, Expression> variables);
 }

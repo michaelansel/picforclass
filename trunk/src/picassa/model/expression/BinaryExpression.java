@@ -191,7 +191,7 @@ public abstract class BinaryExpression extends Expression
 
 
     @Override
-    public Vector<Number> evaluate (Map<String, Number> variables)
+    public Vector<Number> evaluate (Map<String, Expression> variables)
     {
         return evaluateVectors(mySubExpressionA.evaluate(variables),
                                   mySubExpressionB.evaluate(variables));

@@ -22,5 +22,5 @@ public abstract class NoArgFunction extends FunctionExpression
 
 
     @Override
-    public abstract Vector<Number> evaluate (Map<String, Number> variables);
+    public abstract Vector<Number> evaluate (Map<String, Expression> variables);
 }
