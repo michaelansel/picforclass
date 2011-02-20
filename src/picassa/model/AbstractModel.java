@@ -60,4 +60,7 @@ public abstract class AbstractModel
         myController = controller;
     }
 
+
+    public abstract Pixmap fractalizeExpression (Expression parsedExpression,
+                                        Pixmap display);
 }

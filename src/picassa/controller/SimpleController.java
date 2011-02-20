@@ -27,7 +27,7 @@ public class SimpleController extends AbstractController
             Expression parsedExpression =
                 getModel().parseExpression(expression);
             Pixmap renderedExpression =
-                getModel().renderExpression(parsedExpression,
+                getModel().fractalizeExpression(parsedExpression,
                                             getView().getDisplay());
             getView().updateDisplay(renderedExpression);
             // TODO addExpressionToHistory()
