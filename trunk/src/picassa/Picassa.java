@@ -26,17 +26,16 @@ public class Picassa
         view.setController(controller);
         controller.setView(view);
         controller.setModel(model);
-        model.setController(controller);
 
         // Temporary code for testing the controller until the view is fully implemented
         String expression = "random()";
         while (Thread.activeCount() > 1)
         {
-            System.out.println("computing");
             expression =
                 JOptionPane.showInputDialog("Please enter an expression to render:",
                                             expression);
             if (expression == null) break;
+            System.out.println("computing");
             controller.evaluateExpression(expression.replaceAll("\\s", ""));
             try
             {

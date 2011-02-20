@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import picassa.util.Vector;
 
 
 /**
@@ -30,9 +31,9 @@ public abstract class UnaryExpression extends Expression
 
 
     @Override
-    public List<Number> evaluate (Map<String, Number> variables)
+    public Vector<Number> evaluate (Map<String, Number> variables)
     {
-        return evaluateValueLists(mySubExpression.evaluate(variables));
+        return evaluateVectors(mySubExpression.evaluate(variables));
     }
 
 
@@ -40,17 +41,17 @@ public abstract class UnaryExpression extends Expression
 
 
     @Override
-    protected List<Number> evaluateValueLists (List<Number> ... valueLists)
+    protected Vector<Number> evaluateVectors (Vector<Number> ... vectors)
     {
-        if (valueLists.length != 1) throw new IllegalArgumentException("BinaryExpressions can only evaluate 1 set of values");
-        return super.evaluateValueLists(valueLists);
+        if (vectors.length != 1) throw new IllegalArgumentException("UnaryExpressions can only evaluate 1 set of values");
+        return super.evaluateVectors(vectors);
     }
 
 
     @Override
     protected Number evaluateValues (Number ... values)
     {
-        if (values.length != 1) throw new IllegalArgumentException("BinaryExpressions can only evaluate 1 value");
+        if (values.length != 1) throw new IllegalArgumentException("UnaryExpressions can only evaluate 1 value");
         return evaluateValue(values[0]);
     }
 

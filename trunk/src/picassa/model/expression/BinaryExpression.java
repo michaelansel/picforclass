@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Stack;
 import java.util.regex.Pattern;
+import picassa.util.Vector;
 import util.parser.AbstractLexer.TokenMatch;
 
 
@@ -190,18 +191,18 @@ public abstract class BinaryExpression extends Expression
 
 
     @Override
-    public List<Number> evaluate (Map<String, Number> variables)
+    public Vector<Number> evaluate (Map<String, Number> variables)
     {
-        return evaluateValueLists(mySubExpressionA.evaluate(variables),
+        return evaluateVectors(mySubExpressionA.evaluate(variables),
                                   mySubExpressionB.evaluate(variables));
     }
 
 
     @Override
-    protected List<Number> evaluateValueLists (List<Number> ... valueLists)
+    protected Vector<Number> evaluateVectors (Vector<Number> ... vectors)
     {
-        if (valueLists.length != 2) throw new IllegalArgumentException("BinaryExpressions can only merge 2 sets of values");
-        return super.evaluateValueLists(valueLists);
+        if (vectors.length != 2) throw new IllegalArgumentException("BinaryExpressions can only merge 2 sets of values");
+        return super.evaluateVectors(vectors);
     }
 
 

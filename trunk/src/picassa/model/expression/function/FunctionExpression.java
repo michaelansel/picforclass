@@ -1,7 +1,7 @@
 /**
  * 
  */
-package picassa.model.expression;
+package picassa.model.expression.function;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import picassa.model.expression.Expression;
+import picassa.util.Vector;
 
 
 /**
@@ -17,6 +19,8 @@ import java.util.ResourceBundle;
  */
 public abstract class FunctionExpression extends Expression
 {
+    public final static Integer PARAMETER_COUNT = -1;
+    public final static String FUNCTION_NAME = "function";
 
     private static final Map<String, Class<? extends FunctionExpression>> TOKEN_CLASS_MAP;
     public static final String TOKEN_REGEX;
@@ -113,13 +117,13 @@ public abstract class FunctionExpression extends Expression
 
 
     @Override
-    public List<Number> evaluate (Map<String, Number> variables)
+    public Vector<Number> evaluate (Map<String, Number> variables)
     {
-        List<List<Number>> valueLists = new ArrayList<List<Number>>();
+        List<Vector<Number>> vectors = new ArrayList<Vector<Number>>();
         for (Expression expression : myParameters)
-            valueLists.add(expression.evaluate(variables));
+            vectors.add(expression.evaluate(variables));
 
-        return evaluateValueLists(valueLists);
+        return evaluateVectors(vectors);
     }
 
 

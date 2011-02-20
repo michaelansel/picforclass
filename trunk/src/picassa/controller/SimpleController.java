@@ -4,6 +4,8 @@
 package picassa.controller;
 
 import java.io.File;
+import picassa.model.FractalModel;
+import picassa.model.SimpleModel;
 import picassa.model.expression.Expression;
 import picassa.util.Pixmap;
 import picassa.view.AbstractView;
@@ -24,11 +26,22 @@ public class SimpleController extends AbstractController
     {
         try
         {
-            Expression parsedExpression =
-                getModel().parseExpression(expression);
-            Pixmap renderedExpression =
-                getModel().fractalizeExpression(parsedExpression,
-                                            getView().getDisplay());
+            Pixmap renderedExpression = null;
+            String[] ary = expression.split(":", 2);
+            if (ary.length > 1 && ary[0].equals("fractalize"))
+            {
+                System.out.println(ary);
+                expression = ary[1];
+                renderedExpression =
+                    new FractalModel().renderExpression(getModel().parseExpression(expression),
+                                                        getView().getDisplay());
+            }
+            else
+            {
+                renderedExpression =
+                    getModel().renderExpression(getModel().parseExpression(expression),
+                                                getView().getDisplay());
+            }
             getView().updateDisplay(renderedExpression);
             // TODO addExpressionToHistory()
         }
