@@ -47,15 +47,15 @@ public class ConstantExpression extends Expression
     }
 
 
-    public ConstantExpression (String term)
-    {
-        myVector = new Vector<Number>(Double.parseDouble(term));
-    }
-
-
     public ConstantExpression (Number value)
     {
         myVector = new Vector<Number>(value);
+    }
+
+
+    public ConstantExpression (String term)
+    {
+        myVector = new Vector<Number>(Double.parseDouble(term));
     }
 
 

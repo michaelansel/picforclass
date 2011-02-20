@@ -15,8 +15,7 @@ public class AbsFunction extends OneArgFunction
     public final static String FUNCTION_NAME = "abs";
 
 
-    public AbsFunction (String functionName,
-                                  List<Expression> parameters)
+    public AbsFunction (String functionName, List<Expression> parameters)
     {
         super(functionName, parameters);
     }

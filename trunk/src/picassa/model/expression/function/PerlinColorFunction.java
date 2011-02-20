@@ -21,10 +21,16 @@ public class PerlinColorFunction extends TwoArgFunction
      * @param functionName
      * @param parameters
      */
-    public PerlinColorFunction (String functionName,
-                                          List<Expression> parameters)
+    public PerlinColorFunction (String functionName, List<Expression> parameters)
     {
         super(functionName, parameters);
+    }
+
+
+    @Override
+    protected Number evaluateValues (Number valueA, Number valueB)
+    {
+        throw new UnsupportedOperationException();
     }
 
 
@@ -47,13 +53,6 @@ public class PerlinColorFunction extends TwoArgFunction
                                                     vectorB.toRGBColor()
                                                            .getBlue() + 0.1,
                                                     0));
-    }
-
-
-    @Override
-    protected Number evaluateValues (Number valueA, Number valueB)
-    {
-        throw new UnsupportedOperationException();
     }
 
 }

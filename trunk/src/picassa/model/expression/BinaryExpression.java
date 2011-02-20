@@ -25,9 +25,9 @@ public abstract class BinaryExpression extends Expression
 {
     static class BinaryOperator implements Comparable<BinaryOperator>
     {
-        final static List<String> TOKEN_CLASS_NAMES;
-
         final static Map<String, Class<? extends BinaryExpression>> TOKEN_CLASS_MAP;
+
+        final static List<String> TOKEN_CLASS_NAMES;
         static
         {
 
@@ -61,10 +61,10 @@ public abstract class BinaryExpression extends Expression
             TOKEN_CLASS_MAP = tokenClassMap;
         }
 
-        private String myToken;
-        private String myRegex;
         private Class<? extends BinaryExpression> myClass;
         private Integer myPrecedence;
+        private String myRegex;
+        private String myToken;
 
 
         public BinaryOperator (String token)
@@ -194,15 +194,7 @@ public abstract class BinaryExpression extends Expression
     public Vector<Number> evaluate (Map<String, Expression> variables)
     {
         return evaluateVectors(mySubExpressionA.evaluate(variables),
-                                  mySubExpressionB.evaluate(variables));
-    }
-
-
-    @Override
-    protected Vector<Number> evaluateVectors (Vector<Number> ... vectors)
-    {
-        if (vectors.length != 2) throw new IllegalArgumentException("BinaryExpressions can only merge 2 sets of values");
-        return super.evaluateVectors(vectors);
+                               mySubExpressionB.evaluate(variables));
     }
 
 
@@ -215,9 +207,19 @@ public abstract class BinaryExpression extends Expression
 
 
     @Override
+    protected Vector<Number> evaluateVectors (Vector<Number> ... vectors)
+    {
+        if (vectors.length != 2) throw new IllegalArgumentException("BinaryExpressions can only merge 2 sets of values");
+        return super.evaluateVectors(vectors);
+    }
+
+
+    @Override
     protected Collection<Expression> getExpressions ()
     {
-        return Arrays.asList(new Expression[] { mySubExpressionA, mySubExpressionB });
+        return Arrays.asList(new Expression[] {
+                mySubExpressionA,
+                mySubExpressionB });
     }
 
 

@@ -32,6 +32,37 @@ public class SimpleParser extends AbstractParser
         return result;
     }
 
+    private AbstractParserRule AssignmentExpression = new AbstractParserRule()
+    {
+        @Override
+        public ParserResult evaluate () throws ParserException
+        {
+            ExpressionParserResult result =
+                new ExpressionParserResult(super.evaluate());
+            TokenMatch variableName = (TokenMatch) result.getList().get(0);
+            Expression variableValue = (Expression) result.getList().get(2);
+            result.setExpression(new AssignmentExpression(variableName.value,
+                                                          variableValue));
+            return result;
+        }
+
+
+        @Override
+        public void initializeRule ()
+        {
+            setRule(Sequence(SimpleLexer.Token.Variable,
+                             SimpleLexer.Token.AssignmentOperator,
+                             Root));
+        }
+
+
+        @Override
+        public String toString ()
+        {
+            return "AssignmentExpressionRule";
+        }
+    };
+
     private AbstractParserRule BinaryExpression = new AbstractParserRule()
     {
         @Override
@@ -61,9 +92,10 @@ public class SimpleParser extends AbstractParser
                                                 SimpleLexer.Token.NegativeOperator),
                                         SimpleExpression)));
         }
-        
+
+
         @Override
-        public String toString()
+        public String toString ()
         {
             return "BinaryExpressionRule";
         }
@@ -103,9 +135,10 @@ public class SimpleParser extends AbstractParser
             // setRule( FirstOf( Sequence(SimpleLexer.Token.NegativeOperator, SimpleLexer.Token.Constant), SimpleLexer.Token.Constant));
 
         }
-        
+
+
         @Override
-        public String toString()
+        public String toString ()
         {
             return "ConstantRule";
         }
@@ -147,9 +180,10 @@ public class SimpleParser extends AbstractParser
                                                  Root)),
                              SimpleLexer.Token.EndGroup));
         }
-        
+
+
         @Override
-        public String toString()
+        public String toString ()
         {
             return "FunctionRule";
         }
@@ -175,35 +209,12 @@ public class SimpleParser extends AbstractParser
                              Root,
                              SimpleLexer.Token.EndGroup));
         }
-        
+
+
         @Override
-        public String toString()
+        public String toString ()
         {
             return "GroupRule";
-        }
-    };
-
-    private AbstractParserRule AssignmentExpression = new AbstractParserRule()
-    {
-        @Override
-        public ParserResult evaluate() throws ParserException
-        {
-            ExpressionParserResult result = new ExpressionParserResult(super.evaluate());
-            TokenMatch variableName = (TokenMatch) result.getList().get(0);
-            Expression variableValue = (Expression) result.getList().get(2);
-            result.setExpression(new AssignmentExpression(variableName.value, variableValue));
-            return result;
-        }
-        @Override
-        public void initializeRule()
-        {
-            setRule(Sequence(SimpleLexer.Token.Variable, SimpleLexer.Token.AssignmentOperator, Root));
-        }
-        
-        @Override
-        public String toString()
-        {
-            return "AssignmentExpressionRule";
         }
     };
 
@@ -214,9 +225,10 @@ public class SimpleParser extends AbstractParser
         {
             setRule(FirstOf(AssignmentExpression, BinaryExpression));
         }
-        
+
+
         @Override
-        public String toString()
+        public String toString ()
         {
             return "RootRule";
         }
@@ -234,9 +246,10 @@ public class SimpleParser extends AbstractParser
                             Vector,
                             Constant));
         }
-        
+
+
         @Override
-        public String toString()
+        public String toString ()
         {
             return "SimpleExpressionRule";
         }
@@ -268,9 +281,10 @@ public class SimpleParser extends AbstractParser
         {
             setRule(Sequence(SimpleLexer.Token.UnaryOperator, SimpleExpression));
         }
-        
+
+
         @Override
-        public String toString()
+        public String toString ()
         {
             return "UnaryExpressionRule";
         }
@@ -300,9 +314,10 @@ public class SimpleParser extends AbstractParser
         {
             setRule(ExactlyOne(SimpleLexer.Token.Variable));
         }
-        
+
+
         @Override
-        public String toString()
+        public String toString ()
         {
             return "VariableRule";
         }
@@ -331,9 +346,10 @@ public class SimpleParser extends AbstractParser
                              ZeroOrMore(SimpleLexer.Token.Delimiter, Constant),
                              SimpleLexer.Token.EndVector));
         }
-        
+
+
         @Override
-        public String toString()
+        public String toString ()
         {
             return "VectorRule";
         }

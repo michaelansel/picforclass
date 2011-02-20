@@ -31,7 +31,8 @@ public class VariableExpression extends Expression
     {
         if (!variables.containsKey(myName)) throw new RuntimeException(String.format("Variable \"%s\" not found!",
                                                                                      myName));
-        Map<String, Expression> newVariables = new HashMap<String, Expression>(variables);
+        Map<String, Expression> newVariables =
+            new HashMap<String, Expression>(variables);
         // to prevent infinite recursion:
         newVariables.remove(myName);
         return variables.get(myName).evaluate(newVariables);
@@ -46,9 +47,10 @@ public class VariableExpression extends Expression
     {
         throw new UnsupportedOperationException();
     }
-    
+
+
     @Override
-    public String toString()
+    public String toString ()
     {
         return myName;
     }

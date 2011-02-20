@@ -12,9 +12,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import picassa.model.expression.Expression;
-import picassa.model.parser.SimpleParser;
-import picassa.util.RGBColor;
-import util.parser.ParserException;
 
 
 /**

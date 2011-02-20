@@ -3,9 +3,6 @@
  */
 package picassa.model.parser;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.regex.Pattern;
 import picassa.model.expression.ConstantExpression;
 import picassa.model.expression.function.FunctionExpression;
@@ -20,19 +17,20 @@ public class SimpleLexer extends AbstractLexer
 {
     public enum Token implements IToken
     {
-        BinaryOperator("[+]"), NegativeOperator("[-]"), // this needs to be handled differently from other BinaryOperators
-        UnaryOperator("[!]"), AssignmentOperator("[=]"),
-        BeginGroup("[(]"),
-        EndGroup("[)]"),
+        AssignmentOperator("[=]"), BeginGroup("[(]"), // this needs to be handled differently from other BinaryOperators
         BeginVector("[\\[]"),
-        EndVector("[\\]]"),
+        BinaryOperator("[+]"),
+        Constant(ConstantExpression.TOKEN_REGEX),
         Delimiter("[,]"),
+        EndGroup("[)]"),
+        EndVector("[\\]]"),
         FunctionName(FunctionExpression.TOKEN_REGEX),
-        Variable("([$][0-9]+)|([a-zA-Z]+)"),
-        Constant(ConstantExpression.TOKEN_REGEX);
+        NegativeOperator("[-]"),
+        UnaryOperator("[!]"),
+        Variable("([$][0-9]+)|([a-zA-Z]+)");
 
-        private final String myRegex;
         private Pattern myPattern;
+        private final String myRegex;
 
 
         Token (final String regex)

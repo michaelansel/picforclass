@@ -21,11 +21,21 @@ public abstract class TwoArgFunction extends FunctionExpression
      * @param functionName
      * @param parameters
      */
-    public TwoArgFunction (String functionName,
-                                     List<Expression> parameters)
+    public TwoArgFunction (String functionName, List<Expression> parameters)
     {
         super(functionName, parameters);
     }
+
+
+    @Override
+    protected Number evaluateValues (Number ... values)
+    {
+        if (values.length != 2) throw new IllegalArgumentException("Function requires 2 arguments");
+        return evaluateValues(values[0], values[1]);
+    }
+
+
+    protected abstract Number evaluateValues (Number valueA, Number valueB);
 
 
     @Override
@@ -41,15 +51,4 @@ public abstract class TwoArgFunction extends FunctionExpression
     {
         return super.evaluateVectors(vectorA, vectorB);
     }
-
-
-    @Override
-    protected Number evaluateValues (Number ... values)
-    {
-        if (values.length != 2) throw new IllegalArgumentException("Function requires 2 arguments");
-        return evaluateValues(values[0], values[1]);
-    }
-
-
-    protected abstract Number evaluateValues (Number valueA, Number valueB);
 }

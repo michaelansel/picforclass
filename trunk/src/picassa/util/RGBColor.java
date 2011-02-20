@@ -12,8 +12,8 @@ import java.awt.Color;
  */
 public class RGBColor
 {
-    public static final double COLOR_MIN = -1;
     public static final double COLOR_MAX = 1;
+    public static final double COLOR_MIN = -1;
     public static final int JAVA_COLOR_MAX = Color.WHITE.getRed();
 
 
@@ -51,11 +51,11 @@ public class RGBColor
         else return value;
     }
 
-    private double myRed;
+    private double myBlue;
 
     private double myGreen;
 
-    private double myBlue;
+    private double myRed;
 
 
     /**

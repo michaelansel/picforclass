@@ -13,8 +13,8 @@ import picassa.view.AbstractView;
  */
 public abstract class AbstractController
 {
-    private AbstractView myView;
     private AbstractModel myModel;
+    private AbstractView myView;
 
 
     /**

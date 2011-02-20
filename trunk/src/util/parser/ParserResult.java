@@ -33,6 +33,12 @@ public class ParserResult
     }
 
 
+    protected void clearList ()
+    {
+        myObjects.clear();
+    }
+
+
     public List<Object> getList ()
     {
         return new ArrayList<Object>(myObjects);
@@ -43,11 +49,5 @@ public class ParserResult
     public String toString ()
     {
         return String.format("ParserResult(%s)", myObjects.toString());
-    }
-
-
-    protected void clearList ()
-    {
-        myObjects.clear();
     }
 }

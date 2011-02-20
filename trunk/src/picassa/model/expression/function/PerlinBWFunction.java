@@ -3,11 +3,7 @@
  */
 package picassa.model.expression.function;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import picassa.model.expression.Expression;
 import picassa.util.PerlinNoise;
 import picassa.util.Vector;
@@ -30,10 +26,16 @@ public class PerlinBWFunction extends TwoArgFunction
      * @param functionName
      * @param parameters
      */
-    public PerlinBWFunction (String functionName,
-                                       List<Expression> parameters)
+    public PerlinBWFunction (String functionName, List<Expression> parameters)
     {
         super(functionName, parameters);
+    }
+
+
+    @Override
+    protected Number evaluateValues (Number valueA, Number valueB)
+    {
+        throw new UnsupportedOperationException();
     }
 
 
@@ -48,13 +50,6 @@ public class PerlinBWFunction extends TwoArgFunction
                               vectorA.get(2).doubleValue() +
                                       vectorB.get(2).doubleValue());
         return new Vector<Number>(value);
-    }
-
-
-    @Override
-    protected Number evaluateValues (Number valueA, Number valueB)
-    {
-        throw new UnsupportedOperationException();
     }
 
 }
