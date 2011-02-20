@@ -1,22 +1,21 @@
 /**
  * 
  */
-package picassa.model.expression;
+package picassa.model.expression.function;
 
 import java.util.List;
+import picassa.model.expression.Expression;
 
 
 /**
  * @author Michael Ansel
  */
-public class SumFunctionExpression extends FunctionExpression
+public class SumFunction extends FunctionExpression
 {
-    public final static Integer PARAMETER_COUNT = -1;
-
     public final static String FUNCTION_NAME = "sum";
 
 
-    public SumFunctionExpression (String functionName,
+    public SumFunction (String functionName,
                                   List<Expression> parameters)
     {
         super(functionName, parameters);

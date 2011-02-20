@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 import picassa.model.expression.ConstantExpression;
-import picassa.model.expression.FunctionExpression;
+import picassa.model.expression.function.FunctionExpression;
 import util.parser.AbstractLexer;
 import util.parser.IToken;
 

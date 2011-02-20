@@ -1,18 +1,17 @@
 /**
  * 
  */
-package picassa.model.expression;
+package picassa.model.expression.function;
 
 import java.util.List;
+import picassa.model.expression.Expression;
 
 
 /**
  * @author Michael Ansel
  */
-public class SinFunctionExpression extends FunctionExpression
+public class SinFunction extends OneArgFunction
 {
-    public final static Integer PARAMETER_COUNT = 1;
-
     public final static String FUNCTION_NAME = "sin";
 
 
@@ -20,7 +19,7 @@ public class SinFunctionExpression extends FunctionExpression
      * @param functionName
      * @param parameters
      */
-    public SinFunctionExpression (String functionName,
+    public SinFunction (String functionName,
                                   List<Expression> parameters)
     {
         super(functionName, parameters);
@@ -28,8 +27,8 @@ public class SinFunctionExpression extends FunctionExpression
 
 
     @Override
-    protected Number evaluateValues (Number ... values)
+    protected Number evaluateValue (Number value)
     {
-        return Math.sin(values[0].doubleValue());
+        return Math.sin(value.doubleValue());
     }
 }

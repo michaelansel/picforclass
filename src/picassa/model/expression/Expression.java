@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import picassa.util.RGBColor;
+import picassa.util.Vector;
 
 
 /**
@@ -62,35 +64,36 @@ public abstract class Expression
      * @param variables Map of variable names to numeric values
      * @return List of output values
      */
-    public abstract List<Number> evaluate (Map<String, Number> variables);
+    public abstract Vector<Number> evaluate (Map<String, Number> variables);
 
 
-    protected final List<Number> evaluateValueLists (List<List<Number>> valueLists)
+    protected final Vector<Number> evaluateVectors (List<Vector<Number>> vectors)
     {
         // Because Java doesn't let you create an array of generics...
         @SuppressWarnings("unchecked")
-        List<Number>[] valueListArray = new List[valueLists.size()];
-        for (int i = 0; i < valueListArray.length; i++)
-            valueListArray[i] = valueLists.get(i);
-        return evaluateValueLists(valueListArray);
+        Vector<Number>[] vectorArray = new Vector[vectors.size()];
+        for (int i = 0; i < vectorArray.length; i++)
+            vectorArray[i] = vectors.get(i);
+        return evaluateVectors(vectorArray);
     }
 
 
-    protected List<Number> evaluateValueLists (List<Number> ... valueLists)
+    protected Vector<Number> evaluateVectors (Vector<Number> ... vectors)
     {
-        int length = valueLists[0].size();
-        for (List<Number> valueList : valueLists)
+        int length = vectors[0].size();
+        for (List<Number> valueList : vectors)
             if (valueList.size() != length) throw new IllegalArgumentException("All value lists must be the same size.");
 
-        List<Number> results = new ArrayList<Number>();
+        Vector<Number> results = new Vector<Number>();
 
-        List<Number> values = new ArrayList<Number>();
+        List<Number> rowValues = new ArrayList<Number>();
+        // for each "row" in the 2D matrix created by multiple column vectors
         for (int i = 0; i < length; i++)
         {
-            values.clear();
-            for (List<Number> valueList : valueLists)
-                values.add(valueList.get(i));
-            results.add(evaluateValues(values.toArray(new Number[] {})));
+            rowValues.clear();
+            for (Vector<Number> vector : vectors)
+                rowValues.add(vector.get(i));
+            results.add(evaluateValues(rowValues.toArray(new Number[] {})));
         }
         return results;
     }

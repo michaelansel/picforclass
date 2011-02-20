@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import picassa.util.Vector;
 
 
 /**
@@ -27,11 +28,11 @@ public class VariableExpression extends Expression
      * @see picassa.model.expression.Expression#evaluate(java.util.Map)
      */
     @Override
-    public List<Number> evaluate (Map<String, Number> variables)
+    public Vector<Number> evaluate (Map<String, Number> variables)
     {
         if (!variables.containsKey(myName)) throw new RuntimeException(String.format("Variable \"%s\" not found!",
                                                                                      myName));
-        return Arrays.asList(new Number[] { variables.get(myName) });
+        return new Vector<Number>(variables.get(myName));
     }
 
 

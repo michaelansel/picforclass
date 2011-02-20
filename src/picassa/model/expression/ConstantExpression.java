@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import picassa.util.Vector;
 import util.parser.AbstractLexer.TokenMatch;
 
 
@@ -25,22 +26,22 @@ public class ConstantExpression extends Expression
         {
             List<Object> values = new ArrayList<Object>();
             for (Object o : objects)
-                if (o instanceof ConstantExpression) values.addAll(((ConstantExpression) o).myConstants);
+                if (o instanceof ConstantExpression) values.addAll(((ConstantExpression) o).myVector);
             return new ConstantExpression(values);
         }
         throw new IllegalArgumentException("Invalid input: " +
                                            objects.toString());
     }
 
-    private List<Number> myConstants;
+    private Vector<Number> myVector;
 
 
     public ConstantExpression (List<Object> terms)
     {
-        myConstants = new ArrayList<Number>();
+        myVector = new Vector<Number>();
         for (Object term : terms)
-            if (term instanceof String) myConstants.add(Double.parseDouble((String) term));
-            else if (term instanceof Number) myConstants.add((Number) term);
+            if (term instanceof String) myVector.add(Double.parseDouble((String) term));
+            else if (term instanceof Number) myVector.add((Number) term);
             else throw new IllegalArgumentException("Invalid input: " +
                                                     term.toString());
     }
@@ -48,15 +49,15 @@ public class ConstantExpression extends Expression
 
     public ConstantExpression (String term)
     {
-        myConstants = new ArrayList<Number>();
-        myConstants.add(Double.parseDouble(term));
+        myVector = new Vector<Number>();
+        myVector.add(Double.parseDouble(term));
     }
 
 
     @Override
-    public List<Number> evaluate (Map<String, Number> variables)
+    public Vector<Number> evaluate (Map<String, Number> variables)
     {
-        return new ArrayList<Number>(myConstants);
+        return new Vector<Number>(myVector);
     }
 
 
@@ -70,11 +71,11 @@ public class ConstantExpression extends Expression
     @Override
     public String toString ()
     {
-        if (myConstants.size() == 1) return myConstants.get(0).toString();
+        if (myVector.size() == 1) return myVector.get(0).toString();
         // else
         StringBuilder result = new StringBuilder();
         result.append("[");
-        for (Number element : myConstants)
+        for (Number element : myVector)
         {
             result.append(element);
             result.append(",");

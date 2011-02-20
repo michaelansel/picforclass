@@ -120,6 +120,9 @@ public class Pixmap
         myFileName = DEFAULT_NAME;
         myImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         mySize = new Dimension(width, height);
+        for(int x=0; x<width; x++)
+            for(int y=0; y<width; y++)
+                myImage.setRGB(x, y, color.getRGB());
     }
 
 

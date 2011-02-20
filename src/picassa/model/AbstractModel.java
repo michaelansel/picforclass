@@ -3,7 +3,9 @@
  */
 package picassa.model;
 
-import picassa.controller.AbstractController;
+import java.awt.Color;
+import java.util.HashMap;
+import java.util.Map;
 import picassa.model.expression.Expression;
 import picassa.util.Pixmap;
 import util.parser.ParserException;
@@ -14,8 +16,34 @@ import util.parser.ParserException;
  */
 public abstract class AbstractModel
 {
+    public static final double DEFAULT_DOMAIN_MAX = 1;
 
-    protected AbstractController myController;
+    public static final double DEFAULT_DOMAIN_MIN = -1;
+
+
+    /**
+     * Convert from image space to default domain space.
+     */
+    protected double imageToDomainScale (int value, int range)
+    {
+        return imageToDomainScale(value,
+                                  range,
+                                  DEFAULT_DOMAIN_MIN,
+                                  DEFAULT_DOMAIN_MAX);
+    }
+
+
+    /**
+     * Convert from image space to domain space.
+     */
+    protected double imageToDomainScale (int value,
+                                         int range,
+                                         double domainMin,
+                                         double domainMax)
+    {
+        double domainRange = domainMax - domainMin;
+        return ((double) value / range) * domainRange + domainMin;
+    }
 
 
     /**
@@ -36,8 +64,29 @@ public abstract class AbstractModel
      * @param base image to use as start point for rendering
      * @return
      */
-    public abstract Pixmap renderExpression (Expression expression,
-                                             Pixmap baseImage);
+    public Pixmap renderExpression (Expression expression, Pixmap baseImage)
+    {
+        System.out.println("Rendering expression: " + expression.toString());
+        int height = baseImage.getSize().height;
+        int width = baseImage.getSize().width;
+        Pixmap result = new Pixmap(baseImage);
+        Map<String, Number> variables = new HashMap<String, Number>();
+        // evaluate at each pixel
+        for (int imageY = 0; imageY < height; imageY++)
+        {
+            double y = imageToDomainScale(imageY, height);
+            variables.put("y", y);
+            for (int imageX = 0; imageX < width; imageX++)
+            {
+                double x = imageToDomainScale(imageX, width);
+                variables.put("x", x);
+
+                Color color = renderExpression(expression, variables);
+                result.setColor(imageX, imageY, color);
+            }
+        }
+        return result;
+    }
 
 
     /**
@@ -55,12 +104,6 @@ public abstract class AbstractModel
     }
 
 
-    public void setController (AbstractController controller)
-    {
-        myController = controller;
-    }
-
-
-    public abstract Pixmap fractalizeExpression (Expression parsedExpression,
-                                        Pixmap display);
+    protected abstract Color renderExpression (Expression expression,
+                                               Map<String, Number> variables);
 }
