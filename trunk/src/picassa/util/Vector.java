@@ -23,18 +23,18 @@ public class Vector<E extends Number> extends ArrayList<E>
     public Vector (E ... values)
     {
         super(Arrays.asList(values));
-        fixSize();
+//        fixSize();
     }
 
 
     public Vector (List<E> valueList)
     {
         super(valueList);
-        fixSize();
+//        fixSize();
     }
 
 
-    private void fixSize ()
+    public void fixSize ()
     {
         if (size() == 1)
         {

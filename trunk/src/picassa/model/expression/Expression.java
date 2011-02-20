@@ -80,9 +80,12 @@ public abstract class Expression
 
     protected Vector<Number> evaluateVectors (Vector<Number> ... vectors)
     {
+        vectors[0].fixSize();
         int length = vectors[0].size();
-        for (List<Number> valueList : vectors)
-            if (valueList.size() != length) throw new IllegalArgumentException("All value lists must be the same size.");
+        for (Vector<Number> vector : vectors) {
+            vector.fixSize();
+            if (vector.size() != length) throw new IllegalArgumentException("All vectors must be the same size.");
+        }
 
         Vector<Number> results = new Vector<Number>();
 
