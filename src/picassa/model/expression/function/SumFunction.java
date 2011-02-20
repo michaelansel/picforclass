@@ -15,8 +15,7 @@ public class SumFunction extends FunctionExpression
     public final static String FUNCTION_NAME = "sum";
 
 
-    public SumFunction (String functionName,
-                                  List<Expression> parameters)
+    public SumFunction (String functionName, List<Expression> parameters)
     {
         super(functionName, parameters);
     }

@@ -25,8 +25,8 @@ public abstract class AbstractParser
         }
     }
 
-    List<TokenMatch> myTokens;
     private AbstractLexer myLexer;
+    List<TokenMatch> myTokens;
 
 
     public AbstractParser (AbstractLexer lexer)
@@ -72,9 +72,10 @@ public abstract class AbstractParser
             {
                 throw new UnsupportedOperationException();
             }
-            
+
+
             @Override
-            public String toString()
+            public String toString ()
             {
                 return "ExactlyOneRule";
             }
@@ -101,7 +102,7 @@ public abstract class AbstractParser
                 for (AbstractParserRule rule : myRules)
                 {
                     checkpoint = storeCheckpoint();
-                    System.out.println("--Testing: "+rule.toString());
+                    System.out.println("--Testing: " + rule.toString());
                     try
                     {
                         ParserResult result = rule.evaluate();
@@ -113,7 +114,7 @@ public abstract class AbstractParser
                     {
                         System.out.println("--Caught! Restoring from checkpoint...");
                         restoreCheckpoint(checkpoint);
-                        System.out.println("Tokens: "+myTokens.toString());
+                        System.out.println("Tokens: " + myTokens.toString());
                     }
                 }
                 parseError();
@@ -126,9 +127,10 @@ public abstract class AbstractParser
             {
                 throw new UnsupportedOperationException();
             }
-            
+
+
             @Override
-            public String toString()
+            public String toString ()
             {
                 return "FirstOfRule";
             }
@@ -186,9 +188,10 @@ public abstract class AbstractParser
             {
                 throw new UnsupportedOperationException();
             }
-            
+
+
             @Override
-            public String toString()
+            public String toString ()
             {
                 return "OptionalRule";
             }
@@ -250,9 +253,10 @@ public abstract class AbstractParser
             {
                 throw new UnsupportedOperationException();
             }
-            
+
+
             @Override
-            public String toString()
+            public String toString ()
             {
                 return "SequenceRule";
             }
@@ -301,9 +305,10 @@ public abstract class AbstractParser
             {
                 throw new UnsupportedOperationException();
             }
-            
+
+
             @Override
-            public String toString()
+            public String toString ()
             {
                 return "ZeroOrMoreRule";
             }

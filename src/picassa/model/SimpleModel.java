@@ -5,13 +5,10 @@ package picassa.model;
 
 import java.awt.Color;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import picassa.model.expression.AssignmentExpression;
 import picassa.model.expression.Expression;
 import picassa.model.parser.SimpleParser;
-import picassa.util.RGBColor;
-import picassa.util.Vector;
 import util.parser.ParserException;
 
 
@@ -24,15 +21,21 @@ public class SimpleModel extends AbstractModel
     protected Map<String, Expression> myVariables;
 
 
+    public SimpleModel ()
+    {
+        myVariables = new HashMap<String, Expression>();
+    }
+
+
     public SimpleModel (Map<String, Expression> variables)
     {
         myVariables = new HashMap<String, Expression>(variables);
     }
 
 
-    public SimpleModel ()
+    public Map<String, Expression> getVariables ()
     {
-        myVariables = new HashMap<String, Expression>();
+        return myVariables;
     }
 
 
@@ -65,11 +68,5 @@ public class SimpleModel extends AbstractModel
         newVariables.putAll(myVariables);
         newVariables.putAll(variables);
         return expression.evaluate(newVariables).toRGBColor().toJavaColor();
-    }
-
-
-    public Map<String, Expression> getVariables ()
-    {
-        return myVariables;
     }
 }

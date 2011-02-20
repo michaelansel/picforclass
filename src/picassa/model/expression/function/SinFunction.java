@@ -19,8 +19,7 @@ public class SinFunction extends OneArgFunction
      * @param functionName
      * @param parameters
      */
-    public SinFunction (String functionName,
-                                  List<Expression> parameters)
+    public SinFunction (String functionName, List<Expression> parameters)
     {
         super(functionName, parameters);
     }

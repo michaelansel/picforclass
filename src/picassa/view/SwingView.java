@@ -18,11 +18,11 @@ import picassa.util.Pixmap;
  */
 public class SwingView extends AbstractView
 {
-    private JFrame myFrame;
-    private JMenuBar myMenuBar;
     private JPanel myCanvas;
+    private JFrame myFrame;
     private JPanel myHistoryPanel;
     private JPanel myInputPanel;
+    private JMenuBar myMenuBar;
     private ResourceBundle myResources;
 
 

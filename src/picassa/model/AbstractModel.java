@@ -58,6 +58,10 @@ public abstract class AbstractModel
         throws ParserException;
 
 
+    protected abstract Color renderExpression (Expression expression,
+                                               Map<String, Expression> variables);
+
+
     /**
      * TODO JavaDoc
      * 
@@ -103,8 +107,4 @@ public abstract class AbstractModel
     {
         return renderExpression(parseExpression(expression), image);
     }
-
-
-    protected abstract Color renderExpression (Expression expression,
-                                               Map<String, Expression> variables);
 }

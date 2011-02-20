@@ -6,7 +6,6 @@ package picassa.controller;
 import java.io.File;
 import picassa.model.FractalModel;
 import picassa.model.SimpleModel;
-import picassa.model.expression.Expression;
 import picassa.util.Pixmap;
 import picassa.view.AbstractView;
 import util.parser.ParserException;

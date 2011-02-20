@@ -19,8 +19,8 @@ import picassa.util.Vector;
  */
 public abstract class FunctionExpression extends Expression
 {
-    public final static Integer PARAMETER_COUNT = -1;
     public final static String FUNCTION_NAME = "function";
+    public final static Integer PARAMETER_COUNT = -1;
 
     private static final Map<String, Class<? extends FunctionExpression>> TOKEN_CLASS_MAP;
     public static final String TOKEN_REGEX;

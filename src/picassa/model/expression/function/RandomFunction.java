@@ -3,7 +3,6 @@
  */
 package picassa.model.expression.function;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import picassa.model.expression.Expression;
@@ -15,13 +14,12 @@ import picassa.util.Vector;
  */
 public class RandomFunction extends NoArgFunction
 {
-    public final static Integer PARAMETER_COUNT = 0;
-
     public final static String FUNCTION_NAME = "random";
 
+    public final static Integer PARAMETER_COUNT = 0;
 
-    public RandomFunction (String functionName,
-                                     List<Expression> parameters)
+
+    public RandomFunction (String functionName, List<Expression> parameters)
     {
         super(functionName, parameters);
     }

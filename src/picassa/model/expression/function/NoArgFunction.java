@@ -14,8 +14,7 @@ import picassa.util.Vector;
  */
 public abstract class NoArgFunction extends FunctionExpression
 {
-    public NoArgFunction (String functionName,
-                                    List<Expression> parameters)
+    public NoArgFunction (String functionName, List<Expression> parameters)
     {
         super(functionName, parameters);
     }

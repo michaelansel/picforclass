@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import picassa.util.RGBColor;
 import picassa.util.Vector;
 
 
@@ -67,6 +66,12 @@ public abstract class Expression
     public abstract Vector<Number> evaluate (Map<String, Expression> variables);
 
 
+    protected Number evaluateValues (Number ... values)
+    {
+        throw new UnsupportedOperationException("Not implemented");
+    }
+
+
     protected final Vector<Number> evaluateVectors (List<Vector<Number>> vectors)
     {
         // Because Java doesn't let you create an array of generics...
@@ -82,7 +87,8 @@ public abstract class Expression
     {
         vectors[0].fixSize();
         int length = vectors[0].size();
-        for (Vector<Number> vector : vectors) {
+        for (Vector<Number> vector : vectors)
+        {
             vector.fixSize();
             if (vector.size() != length) throw new IllegalArgumentException("All vectors must be the same size.");
         }
@@ -99,12 +105,6 @@ public abstract class Expression
             results.add(evaluateValues(rowValues.toArray(new Number[] {})));
         }
         return results;
-    }
-
-
-    protected Number evaluateValues (Number ... values)
-    {
-        throw new UnsupportedOperationException("Not implemented");
     }
 
 

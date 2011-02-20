@@ -22,10 +22,11 @@ public class NotExpression extends UnaryExpression
     {
         return value.doubleValue() * -1;
     }
-    
+
+
     @Override
-    public String toString()
+    public String toString ()
     {
-        return "!"+super.toString();
+        return "!" + super.toString();
     }
 }

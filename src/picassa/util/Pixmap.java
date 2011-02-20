@@ -20,9 +20,9 @@ import javax.swing.ImageIcon;
  */
 public class Pixmap
 {
-    public static final Dimension DEFAULT_SIZE = new Dimension(300, 300);
     public static final Color DEFAULT_COLOR = Color.BLACK;
     public static final String DEFAULT_NAME = "Default";
+    public static final Dimension DEFAULT_SIZE = new Dimension(300, 300);
     public static final String DEFAULT_TYPE = "jpg";
 
     private String myFileName;
@@ -120,8 +120,8 @@ public class Pixmap
         myFileName = DEFAULT_NAME;
         myImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         mySize = new Dimension(width, height);
-        for(int x=0; x<width; x++)
-            for(int y=0; y<width; y++)
+        for (int x = 0; x < width; x++)
+            for (int y = 0; y < width; y++)
                 myImage.setRGB(x, y, color.getRGB());
     }
 
