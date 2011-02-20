@@ -8,6 +8,7 @@ import java.util.Map;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import picassa.model.expression.ConstantExpression;
 import picassa.model.expression.Expression;
 import picassa.model.parser.SimpleParser;
 import util.parser.ParserException;
@@ -77,9 +78,9 @@ public class SimpleParserTest extends TestCase
         assertEquals(expected, parsedExpression.toString());
         assertEquals(expected, SimpleParser.parse(parsedExpression.toString().replaceAll("\\s", "")).toString());
         
-        Map<String, Number> variables = new HashMap<String, Number>();
-        variables.put("x", 1);
-        variables.put("y", 7);
+        Map<String, Expression> variables = new HashMap<String, Expression>();
+        variables.put("x", new ConstantExpression(1));
+        variables.put("y", new ConstantExpression(7));
         System.out.println(parsedExpression.toString() + " => " +
                            parsedExpression.evaluate(variables));
     }

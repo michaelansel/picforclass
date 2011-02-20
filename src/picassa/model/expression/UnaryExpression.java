@@ -31,7 +31,7 @@ public abstract class UnaryExpression extends Expression
 
 
     @Override
-    public Vector<Number> evaluate (Map<String, Number> variables)
+    public Vector<Number> evaluate (Map<String, Expression> variables)
     {
         return evaluateVectors(mySubExpression.evaluate(variables));
     }

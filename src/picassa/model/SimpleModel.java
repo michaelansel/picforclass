@@ -31,7 +31,7 @@ public class SimpleModel extends AbstractModel
 
 
     protected Color renderExpression (Expression expression,
-                                      Map<String, Number> variables)
+                                      Map<String, Expression> variables)
     {
         List<Number> values = expression.evaluate(variables);
         Color color;

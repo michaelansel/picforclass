@@ -49,13 +49,18 @@ public class ConstantExpression extends Expression
 
     public ConstantExpression (String term)
     {
-        myVector = new Vector<Number>();
-        myVector.add(Double.parseDouble(term));
+        myVector = new Vector<Number>(Double.parseDouble(term));
+    }
+
+
+    public ConstantExpression (Number value)
+    {
+        myVector = new Vector<Number>(value);
     }
 
 
     @Override
-    public Vector<Number> evaluate (Map<String, Number> variables)
+    public Vector<Number> evaluate (Map<String, Expression> variables)
     {
         return new Vector<Number>(myVector);
     }

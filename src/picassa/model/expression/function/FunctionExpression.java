@@ -117,7 +117,7 @@ public abstract class FunctionExpression extends Expression
 
 
     @Override
-    public Vector<Number> evaluate (Map<String, Number> variables)
+    public Vector<Number> evaluate (Map<String, Expression> variables)
     {
         List<Vector<Number>> vectors = new ArrayList<Vector<Number>>();
         for (Expression expression : myParameters)

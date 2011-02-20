@@ -64,7 +64,7 @@ public abstract class Expression
      * @param variables Map of variable names to numeric values
      * @return List of output values
      */
-    public abstract Vector<Number> evaluate (Map<String, Number> variables);
+    public abstract Vector<Number> evaluate (Map<String, Expression> variables);
 
 
     protected final Vector<Number> evaluateVectors (List<Vector<Number>> vectors)

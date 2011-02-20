@@ -3,9 +3,8 @@
  */
 package picassa.model.expression;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import picassa.util.Vector;
 
@@ -25,14 +24,17 @@ public class VariableExpression extends Expression
 
 
     /**
-     * @see picassa.model.expression.Expression#evaluate(java.util.Map)
+     * @see picassa.model.expression.Expression#evaluate(Map)
      */
     @Override
-    public Vector<Number> evaluate (Map<String, Number> variables)
+    public Vector<Number> evaluate (Map<String, Expression> variables)
     {
         if (!variables.containsKey(myName)) throw new RuntimeException(String.format("Variable \"%s\" not found!",
                                                                                      myName));
-        return new Vector<Number>(variables.get(myName));
+        Map<String, Expression> newVariables = new HashMap<String, Expression>(variables);
+        // to prevent infinite recursion:
+        newVariables.remove(myName);
+        return variables.get(myName).evaluate(newVariables);
     }
 
 
