@@ -36,6 +36,7 @@ public class Picassa
                                             expression);
             if (expression == null) break;
             System.out.println("computing");
+            // TODO handle whitespace in parser
             controller.evaluateExpression(expression.replaceAll("\\s", ""));
             try
             {

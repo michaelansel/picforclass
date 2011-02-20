@@ -21,7 +21,7 @@ public abstract class AbstractParser
 
         public ParserCheckpoint (List<TokenMatch> tokens)
         {
-            myTokens = tokens;
+            myTokens = new ArrayList<TokenMatch>(tokens);
         }
     }
 
@@ -72,6 +72,12 @@ public abstract class AbstractParser
             {
                 throw new UnsupportedOperationException();
             }
+            
+            @Override
+            public String toString()
+            {
+                return "ExactlyOneRule";
+            }
         };
     }
 
@@ -119,6 +125,12 @@ public abstract class AbstractParser
             public void setRule (AbstractParserRule rule)
             {
                 throw new UnsupportedOperationException();
+            }
+            
+            @Override
+            public String toString()
+            {
+                return "FirstOfRule";
             }
         };
     }
@@ -173,6 +185,12 @@ public abstract class AbstractParser
             public void setRule (AbstractParserRule rule)
             {
                 throw new UnsupportedOperationException();
+            }
+            
+            @Override
+            public String toString()
+            {
+                return "OptionalRule";
             }
         };
     }
@@ -232,6 +250,12 @@ public abstract class AbstractParser
             {
                 throw new UnsupportedOperationException();
             }
+            
+            @Override
+            public String toString()
+            {
+                return "SequenceRule";
+            }
         };
     }
 
@@ -276,6 +300,12 @@ public abstract class AbstractParser
             public void setRule (AbstractParserRule rule)
             {
                 throw new UnsupportedOperationException();
+            }
+            
+            @Override
+            public String toString()
+            {
+                return "ZeroOrMoreRule";
             }
         };
     }

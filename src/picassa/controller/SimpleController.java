@@ -33,8 +33,8 @@ public class SimpleController extends AbstractController
                 System.out.println(ary);
                 expression = ary[1];
                 renderedExpression =
-                    new FractalModel().renderExpression(getModel().parseExpression(expression),
-                                                        getView().getDisplay());
+                    new FractalModel(((SimpleModel) getModel()).getVariables()).renderExpression(getModel().parseExpression(expression),
+                                                                                                 getView().getDisplay());
             }
             else
             {
@@ -46,6 +46,11 @@ public class SimpleController extends AbstractController
             // TODO addExpressionToHistory()
         }
         catch (ParserException e)
+        {
+            e.printStackTrace();
+            getView().updateDisplay(AbstractView.RENDER_FAILED_IMAGE);
+        }
+        catch (RuntimeException e)
         {
             e.printStackTrace();
             getView().updateDisplay(AbstractView.RENDER_FAILED_IMAGE);

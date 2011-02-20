@@ -8,6 +8,7 @@ import java.util.Map;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import picassa.model.expression.AssignmentExpression;
 import picassa.model.expression.ConstantExpression;
 import picassa.model.expression.Expression;
 import picassa.model.parser.SimpleParser;
@@ -69,6 +70,12 @@ public class SimpleParserTest extends TestCase
         
         // variables
         testParse("1+x+y+2", "(1.0+(x+(y+2.0)))");
+        
+        // assignment
+        testParse("a=1+2", "a=(1.0+2.0)");
+        
+        // recursive assignment
+        testParse("z=z+1", "z=(z+1.0)");
     }
 
     private void testParse (String expression, String expected)
@@ -76,11 +83,13 @@ public class SimpleParserTest extends TestCase
     {
         Expression parsedExpression = SimpleParser.parse(expression);
         assertEquals(expected, parsedExpression.toString());
+        System.out.println("===Successfully parsed "+expression+" to "+parsedExpression.toString());
         assertEquals(expected, SimpleParser.parse(parsedExpression.toString().replaceAll("\\s", "")).toString());
         
         Map<String, Expression> variables = new HashMap<String, Expression>();
         variables.put("x", new ConstantExpression(1));
         variables.put("y", new ConstantExpression(7));
+        variables.put("z", new AssignmentExpression("z", new ConstantExpression(10)));
         System.out.println(parsedExpression.toString() + " => " +
                            parsedExpression.evaluate(variables));
     }

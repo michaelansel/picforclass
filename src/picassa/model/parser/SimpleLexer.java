@@ -21,7 +21,7 @@ public class SimpleLexer extends AbstractLexer
     public enum Token implements IToken
     {
         BinaryOperator("[+]"), NegativeOperator("[-]"), // this needs to be handled differently from other BinaryOperators
-        UnaryOperator("[!]"),
+        UnaryOperator("[!]"), AssignmentOperator("[=]"),
         BeginGroup("[(]"),
         EndGroup("[)]"),
         BeginVector("[\\[]"),

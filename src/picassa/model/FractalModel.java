@@ -20,7 +20,7 @@ import util.parser.ParserException;
 /**
  * @author Michael Ansel
  */
-public class FractalModel extends AbstractModel
+public class FractalModel extends SimpleModel
 {
     final private static List<Color> COLORS;
     private static final int MAX_ITERATIONS = 100;
@@ -49,11 +49,9 @@ public class FractalModel extends AbstractModel
     }
 
 
-    @Override
-    public Expression parseExpression (String expression)
-        throws ParserException
+    public FractalModel (Map<String, Expression> variables)
     {
-        return SimpleParser.parse(expression);
+        super(variables);
     }
 
 
@@ -62,9 +60,9 @@ public class FractalModel extends AbstractModel
                                       Map<String, Expression> variables)
     {
         /*
-         * Is there a better way to do this without losing the flexibility of
-         * being able to add new variables with no modifications to the abstract
-         * class?
+         * TODO Is there a better way to do this without losing the flexibility
+         * of being able to add new variables with no modifications to the
+         * abstract class?
          */
         double x = variables.get("x").evaluate(variables).get(0).doubleValue();
         double y = variables.get("y").evaluate(variables).get(0).doubleValue();
@@ -76,7 +74,7 @@ public class FractalModel extends AbstractModel
         while ((Math.sqrt((x * x) + (y * y)) < RANGE) &&
                (counter <= MAX_ITERATIONS))
         {
-            RGBColor pixelColor = expression.evaluate(variables).toRGBColor();
+            Color pixelColor = super.renderExpression(expression, variables);
             x = pixelColor.getRed();
             y = pixelColor.getGreen();
             counter++;
