@@ -17,15 +17,15 @@ public class SimpleLexer extends AbstractLexer
 {
     public enum Token implements IToken
     {
-        AssignmentOperator("[=]"), BeginGroup("[(]"), // this needs to be handled differently from other BinaryOperators
+        AssignmentOperator("[=]"), BeginGroup("[(]"),
         BeginVector("[\\[]"),
-        BinaryOperator("[+]"),
+        BinaryOperator("[+*/%^]"),
         Constant(ConstantExpression.TOKEN_REGEX),
         Delimiter("[,]"),
         EndGroup("[)]"),
         EndVector("[\\]]"),
         FunctionName(FunctionExpression.TOKEN_REGEX),
-        NegativeOperator("[-]"),
+        NegativeOperator("[-]"), // this needs to be handled differently from other BinaryOperators
         UnaryOperator("[!]"),
         Variable("([$][0-9]+)|([a-zA-Z]+)");
 
