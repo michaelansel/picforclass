@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import picassa.model.expression.Expression;
 import picassa.util.Pixmap;
@@ -30,7 +31,7 @@ public class SwingView extends AbstractView
     private JFrame myFrame;
     private HistoryPanel myHistoryPanel;
     private InputPanel myInputPanel;
-    private JTextArea myDebugPanel;
+    private JTextField myDebugPanel;
     private ToolBar myToolBar;
     private ResourceBundle myResources;
 
@@ -89,7 +90,7 @@ public class SwingView extends AbstractView
     {
     	makeMouseListeners();
 		// TODO Hardcoded values are bad!
-		Canvas newCanvas = new Canvas(myFrame, new Dimension(300, 300));
+		Canvas newCanvas = new Canvas(myFrame, myCanvasSize);
 		newCanvas.addMouseMotionListener(myMouseMotionListener);
 		newCanvas.addMouseListener(myMouseListener);
 		
@@ -98,7 +99,8 @@ public class SwingView extends AbstractView
 
     private JScrollPane createDebugPanel ()
 	{
-		myDebugPanel = new JTextArea(30, 40); // rows and columns
+		myDebugPanel = new JTextField("",40); // rows and columns
+		myDebugPanel.setEditable(false);
         return new JScrollPane(myDebugPanel);
 	}
 	
@@ -154,7 +156,7 @@ public class SwingView extends AbstractView
 	
 	private void showMessage(String message)
 	{
-		myDebugPanel.append(message + "\n");
+		myDebugPanel.setText(message);
 		myDebugPanel.setCaretPosition(myDebugPanel.getText().length());
 	}
 
