@@ -119,58 +119,44 @@
       <x="182"/>
       <y="657"/>
    </type>
+   <type>
+      <name="=spring11_cps108_03_picassa/src<picassa.model.expression{DivideExpression.java[DivideExpression"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="2549"/>
+      <y="500"/>
+   </type>
+   <type>
+      <name="=spring11_cps108_03_picassa/src<picassa.model.expression{ExponentExpression.java[ExponentExpression"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="2123"/>
+      <y="230"/>
+   </type>
+   <type>
+      <name="=spring11_cps108_03_picassa/src<picassa.model.expression{ModulusExpression.java[ModulusExpression"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="2361"/>
+      <y="361"/>
+   </type>
+   <type>
+      <name="=spring11_cps108_03_picassa/src<picassa.model.expression{MultiplyExpression.java[MultiplyExpression"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="2724"/>
+      <y="626"/>
+   </type>
+   <type>
+      <name="=spring11_cps108_03_picassa/src<picassa.model.expression{SubtractExpression.java[SubtractExpression"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="2555"/>
+      <y="747"/>
+   </type>
    <relationship>
       <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{AbsFunction.java[AbsFunction"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{OneArgFunction.java[OneArgFunction"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{SumFunction.java[SumFunction"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{FunctionExpression.java[FunctionExpression"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{RandomFunction.java[RandomFunction"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{NoArgFunction.java[NoArgFunction"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{BinaryExpression.java[BinaryExpression"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{Expression.java[Expression"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{OneArgFunction.java[OneArgFunction"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{FunctionExpression.java[FunctionExpression"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.association.AssociationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{FunctionExpression.java[FunctionExpression"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{Expression.java[Expression"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{VariableExpression.java[VariableExpression"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{Expression.java[Expression"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{AddExpression.java[AddExpression"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{ExponentExpression.java[ExponentExpression"/>
       <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{BinaryExpression.java[BinaryExpression"/>
       <bendpoints>
       </bendpoints>
@@ -191,8 +177,120 @@
    </relationship>
    <relationship>
       <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{AddExpression.java[AddExpression"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{BinaryExpression.java[BinaryExpression"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{BinaryExpression.java[BinaryExpression"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{Expression.java[Expression"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{ConstantExpression.java[ConstantExpression"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{Expression.java[Expression"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{MultiplyExpression.java[MultiplyExpression"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{BinaryExpression.java[BinaryExpression"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{VariableExpression.java[VariableExpression"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{Expression.java[Expression"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.association.AssociationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{FunctionExpression.java[FunctionExpression"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{Expression.java[Expression"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{SubtractExpression.java[SubtractExpression"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{BinaryExpression.java[BinaryExpression"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{SumFunction.java[SumFunction"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{FunctionExpression.java[FunctionExpression"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{OneArgFunction.java[OneArgFunction"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{FunctionExpression.java[FunctionExpression"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{ModulusExpression.java[ModulusExpression"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{BinaryExpression.java[BinaryExpression"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.association.AssociationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{UnaryExpression.java[UnaryExpression"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{Expression.java[Expression"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
       <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{SinFunction.java[SinFunction"/>
       <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{OneArgFunction.java[OneArgFunction"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{PerlinColorFunction.java[PerlinColorFunction"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{TwoArgFunction.java[TwoArgFunction"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{AbsFunction.java[AbsFunction"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{OneArgFunction.java[OneArgFunction"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{DivideExpression.java[DivideExpression"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{BinaryExpression.java[BinaryExpression"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{TwoArgFunction.java[TwoArgFunction"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{FunctionExpression.java[FunctionExpression"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{NotExpression.java[NotExpression"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{UnaryExpression.java[UnaryExpression"/>
       <bendpoints>
       </bendpoints>
    </relationship>
@@ -205,8 +303,8 @@
    </relationship>
    <relationship>
       <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{PerlinColorFunction.java[PerlinColorFunction"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{TwoArgFunction.java[TwoArgFunction"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{RandomFunction.java[RandomFunction"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{NoArgFunction.java[NoArgFunction"/>
       <bendpoints>
       </bendpoints>
    </relationship>
@@ -220,34 +318,6 @@
    <relationship>
       <class="edu.buffalo.cse.green.relationship.association.AssociationPart"/>
       <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{BinaryExpression.java[BinaryExpression"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{Expression.java[Expression"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.association.AssociationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{UnaryExpression.java[UnaryExpression"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{Expression.java[Expression"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{NotExpression.java[NotExpression"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{UnaryExpression.java[UnaryExpression"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{TwoArgFunction.java[TwoArgFunction"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression.function{FunctionExpression.java[FunctionExpression"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model.expression{ConstantExpression.java[ConstantExpression"/>
       <targetType="=spring11_cps108_03_picassa/src<picassa.model.expression{Expression.java[Expression"/>
       <bendpoints>
       </bendpoints>

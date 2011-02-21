@@ -56,10 +56,52 @@
       <x="763"/>
       <y="441"/>
    </type>
+   <type>
+      <name="=spring11_cps108_03_picassa/src<picassa.view{InputPanel.java[InputPanel"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="1157"/>
+      <y="145"/>
+   </type>
+   <type>
+      <name="=spring11_cps108_03_picassa/src<picassa.view{HistoryPanel.java[HistoryPanel"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="1168"/>
+      <y="811"/>
+   </type>
+   <type>
+      <name="=spring11_cps108_03_picassa/src<picassa.view{ToolBar.java[ToolBar"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="775"/>
+      <y="994"/>
+   </type>
+   <type>
+      <name="=spring11_cps108_03_picassa/src<picassa.view{Thumbnail.java[Thumbnail"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="1501"/>
+      <y="790"/>
+   </type>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.view{SwingView.java[SwingView"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.view{InputPanel.java[InputPanel"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
    <relationship>
       <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.model{SimpleModel.java[SimpleModel"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.model{AbstractModel.java[AbstractModel"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.view{SwingView.java[SwingView"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.view{AbstractView.java[AbstractView"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.association.AssociationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.view{InputPanel.java[InputPanel"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.view{SwingView.java[SwingView"/>
       <bendpoints>
       </bendpoints>
    </relationship>
@@ -71,61 +113,19 @@
       </bendpoints>
    </relationship>
    <relationship>
-      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.view{SwingView.java[SwingView"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.view{AbstractView.java[AbstractView"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.dependency.DependencyIPart"/>
+      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
       <sourceType="=spring11_cps108_03_picassa/src<picassa.view{SwingView.java[SwingView"/>
       <targetType="=spring11_cps108_03_picassa/src<picassa.view{Canvas.java[Canvas"/>
       <bendpoints>
       </bendpoints>
    </relationship>
-   <type>
-      <name="=spring11_cps108_03_picassa/src<picassa.view{InputPanel.java[InputPanel"/>
-      <height="-1"/>
-      <width="-1"/>
-      <x="1157"/>
-      <y="145"/>
-   </type>
    <relationship>
-      <class="edu.buffalo.cse.green.relationship.association.AssociationPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.view{InputPanel.java[InputPanel"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.view{SwingView.java[SwingView"/>
+      <class="edu.buffalo.cse.green.relationship.generalization.GeneralizationPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.model{SimpleModel.java[SimpleModel"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.model{AbstractModel.java[AbstractModel"/>
       <bendpoints>
       </bendpoints>
    </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.view{SwingView.java[SwingView"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.view{InputPanel.java[InputPanel"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <type>
-      <name="=spring11_cps108_03_picassa/src<picassa.view{HistoryPanel.java[HistoryPanel"/>
-      <height="-1"/>
-      <width="-1"/>
-      <x="1168"/>
-      <y="811"/>
-   </type>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.dependency.DependencyIPart"/>
-      <sourceType="=spring11_cps108_03_picassa/src<picassa.view{SwingView.java[SwingView"/>
-      <targetType="=spring11_cps108_03_picassa/src<picassa.view{HistoryPanel.java[HistoryPanel"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <type>
-      <name="=spring11_cps108_03_picassa/src<picassa.view{ToolBar.java[ToolBar"/>
-      <height="-1"/>
-      <width="-1"/>
-      <x="763"/>
-      <y="898"/>
-   </type>
    <relationship>
       <class="edu.buffalo.cse.green.relationship.association.AssociationPart"/>
       <sourceType="=spring11_cps108_03_picassa/src<picassa.view{ToolBar.java[ToolBar"/>
@@ -137,6 +137,20 @@
       <class="edu.buffalo.cse.green.relationship.dependency.DependencyIPart"/>
       <sourceType="=spring11_cps108_03_picassa/src<picassa.view{SwingView.java[SwingView"/>
       <targetType="=spring11_cps108_03_picassa/src<picassa.view{ToolBar.java[ToolBar"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.view{HistoryPanel.java[HistoryPanel"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.view{Thumbnail.java[Thumbnail"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.dependency.DependencyIPart"/>
+      <sourceType="=spring11_cps108_03_picassa/src<picassa.view{SwingView.java[SwingView"/>
+      <targetType="=spring11_cps108_03_picassa/src<picassa.view{HistoryPanel.java[HistoryPanel"/>
       <bendpoints>
       </bendpoints>
    </relationship>
