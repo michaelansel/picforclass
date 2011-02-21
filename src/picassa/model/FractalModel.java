@@ -56,11 +56,6 @@ public class FractalModel extends SimpleModel
     protected Color renderExpression (Expression expression,
                                       Map<String, Expression> variables)
     {
-        /*
-         * TODO Is there a better way to do this without losing the flexibility
-         * of being able to add new variables with no modifications to the
-         * abstract class?
-         */
         double x = variables.get("x").evaluate(variables).get(0).doubleValue();
         double y = variables.get("y").evaluate(variables).get(0).doubleValue();
 

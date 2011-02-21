@@ -93,16 +93,16 @@ public class SwingView extends AbstractView
         // TODO create panel with expression input box and "Evaluate" button
         // "Evaluate" button calls getController().evaluateExpression(inputBox.getValue())
         // move to separate class if necessary
-        return new InputPanel(myFrame, myInputPanelSize);
+        InputPanel panel = new InputPanel(myFrame, myInputPanelSize, this);
+        return panel;
     }
 
 
     private ToolBar createToolBar ()
     {
-        return new ToolBar(myFrame, myToolBarSize);
+        return new ToolBar(myFrame, myToolBarSize, this);
     }
-
-
+    
     @Override
     public Pixmap getDisplay ()
     {
@@ -114,5 +114,10 @@ public class SwingView extends AbstractView
     public void updateDisplay (Pixmap image)
     {
         ((Canvas) myCanvas).setPixmap(image);
+    }
+    
+    public String getUserExpression()
+    {
+        return myInputPanel.getUserExpression();
     }
 }

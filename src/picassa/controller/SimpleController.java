@@ -78,4 +78,11 @@ public class SimpleController extends AbstractController
 
     }
 
+
+    @Override
+    public void reset ()
+    {
+        getView().updateDisplay(new Pixmap(getView().getDisplay().getSize()));    
+    }
+
 }

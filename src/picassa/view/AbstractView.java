@@ -41,4 +41,7 @@ public abstract class AbstractView
 
 
     public abstract void updateDisplay (Pixmap image);
+
+
+    public abstract String getUserExpression ();
 }
