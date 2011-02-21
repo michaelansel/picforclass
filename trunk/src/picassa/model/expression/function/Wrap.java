@@ -10,7 +10,7 @@ import picassa.model.expression.Expression;
 
 public class Wrap extends OneArgFunction
 {
-	public final static String FUNCTION_NAME = "clamp";
+	public final static String FUNCTION_NAME = "wrap";
 
 	
 	 public Wrap(String functionName, List<Expression> parameters) {
