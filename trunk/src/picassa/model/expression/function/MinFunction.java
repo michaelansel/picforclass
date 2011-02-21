@@ -18,7 +18,7 @@ import picassa.util.Vector;
  * @author Michael Ansel
  * @author Max Egan
  */
-public class MinFunction extends ThreeArgFunction
+public class MinFunction extends FunctionExpression
 {
     public final static String FUNCTION_NAME = "min";
 
@@ -42,9 +42,11 @@ public class MinFunction extends ThreeArgFunction
 
 
 	@Override
-	protected Number evaluateValues(Number valueA, Number valueB, Number valueC) {
-		 double min = Math.min(valueA.doubleValue(), valueB.doubleValue());
-	        return Math.min(min, valueC.doubleValue());
+	protected Number evaluateValues(Number...values) {
+	    double min = values[0].doubleValue();
+        for(Number value : values)
+            min = Math.min(min, value.doubleValue());
+        return min;
 	}
 
 }
