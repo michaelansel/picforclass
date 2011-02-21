@@ -3,7 +3,6 @@
  */
 package picassa.view;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,9 +12,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import picassa.model.expression.Expression;
 import picassa.util.Pixmap;
 
@@ -42,7 +39,8 @@ public class SwingView extends AbstractView
     private Dimension myInputPanelSize = new Dimension(myCanvasSize.width, 30);
 
     private MouseMotionListener myMouseMotionListener;
-	private MouseListener myMouseListener;
+    private MouseListener myMouseListener;
+
 
     public SwingView ()
     {
@@ -71,8 +69,6 @@ public class SwingView extends AbstractView
         myFrame.getContentPane().add(createDebugPanel());
         myFrame.pack();
 
-
-        
         // show it!
         myFrame.setVisible(true);
     }
@@ -88,77 +84,93 @@ public class SwingView extends AbstractView
 
     private JPanel createCanvas ()
     {
-    	makeMouseListeners();
-		// TODO Hardcoded values are bad!
-		Canvas newCanvas = new Canvas(myFrame, myCanvasSize);
-		newCanvas.addMouseMotionListener(myMouseMotionListener);
-		newCanvas.addMouseListener(myMouseListener);
-		
-		return newCanvas;
+        makeMouseListeners();
+        Canvas newCanvas = new Canvas(myFrame, myCanvasSize);
+        newCanvas.addMouseMotionListener(myMouseMotionListener);
+        newCanvas.addMouseListener(myMouseListener);
+
+        return newCanvas;
     }
 
+    
     private JScrollPane createDebugPanel ()
-	{
-		myDebugPanel = new JTextField("",40); // rows and columns
-		myDebugPanel.setEditable(false);
+    {
+        myDebugPanel = new JTextField("", 40); // rows and columns
+        myDebugPanel.setEditable(false);
         return new JScrollPane(myDebugPanel);
-	}
-	
-	private void makeMouseListeners()
-	{
-		myMouseMotionListener = new MouseMotionListener()
-		{
+    }
 
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				echo("drag", e);
-				
-			}
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				echo("move", e);
-				
-			}
-		};
-		
-		myMouseListener = new MouseListener()
-		{
-			public void mouseClicked (MouseEvent e)
+
+    private void makeMouseListeners ()
+    {
+        myMouseMotionListener = new MouseMotionListener()
+        {
+
+            @Override
+            public void mouseDragged (MouseEvent e)
+            {
+                echo("drag", e);
+
+            }
+
+
+            @Override
+            public void mouseMoved (MouseEvent e)
+            {
+                echo("move", e);
+
+            }
+        };
+
+        myMouseListener = new MouseListener()
+        {
+            public void mouseClicked (MouseEvent e)
             {
                 echo("clicked", e);
             }
+
+
             public void mouseEntered (MouseEvent e)
             {
                 echo("enter", e);
             }
+
+
             public void mouseExited (MouseEvent e)
             {
                 echo("exit", e);
             }
+
+
             public void mousePressed (MouseEvent e)
             {
                 echo("pressed", e);
             }
+
+
             public void mouseReleased (MouseEvent e)
             {
                 echo("released", e);
             }
-		};
-	}
-	
-	private void echo (String s, MouseEvent e)
+        };
+    }
+
+
+    private void echo (String s, MouseEvent e)
     {
-		String message = "" + ((Canvas) myCanvas).getColorAtXY(e.getX(), e.getY());
-		message = message.substring(14);
+        String message =
+            "" + ((Canvas) myCanvas).getColorAtXY(e.getX(), e.getY());
+        message = message.substring(14);
         showMessage(message + " X = " + e.getX() + " , Y = " + e.getY());
         //System.out.println(myCanvas.getColorAtXY(e.getX(), e.getY()));
     }
-	
-	private void showMessage(String message)
-	{
-		myDebugPanel.setText(message);
-		myDebugPanel.setCaretPosition(myDebugPanel.getText().length());
-	}
+
+
+    private void showMessage (String message)
+    {
+        myDebugPanel.setText(message);
+        myDebugPanel.setCaretPosition(myDebugPanel.getText().length());
+    }
 
     private HistoryPanel createHistoryPanel ()
     {
@@ -169,7 +181,6 @@ public class SwingView extends AbstractView
         return new HistoryPanel(myFrame, myHistoryPanelSize);
         //return null;
     }
-
 
     private InputPanel createInputPanel ()
     {

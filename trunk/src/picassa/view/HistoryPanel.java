@@ -37,7 +37,7 @@ public class HistoryPanel extends JPanel
                             ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
                             ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-        add(scrollpane);
+        add(scrollpane, BorderLayout.SOUTH);
         setPreferredSize(size);
         thumbnailSize = new Dimension((size.height - 40), (size.height - 40));
 
