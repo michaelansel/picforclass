@@ -16,6 +16,7 @@ import picassa.model.expression.Expression;
 
 /**
  * @author Michael Ansel
+ * @author Andrea Scripa
  */
 public class FractalModel extends SimpleModel
 {
