@@ -27,6 +27,7 @@ public class Picassa
         controller.setView(view);
         controller.setModel(model);
 
+        /**
         // Temporary code for testing the controller until the view is fully implemented
         String expression = "random()";
         while (Thread.activeCount() > 1)
@@ -49,5 +50,6 @@ public class Picassa
                 break;
             }
         }
+        */
     }
 }

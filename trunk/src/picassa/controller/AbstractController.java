@@ -47,6 +47,9 @@ public abstract class AbstractController
 
 
     public abstract void saveStateToFile (File file);
+    
+    
+    public abstract void reset();
 
 
     public void setModel (AbstractModel model)

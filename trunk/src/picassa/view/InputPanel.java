@@ -2,40 +2,50 @@ package picassa.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import picassa.controller.AbstractController;
+
+
 /**
  * @author Andrea Scripa
  */
 
-public class InputPanel extends JComponent implements ActionListener
+public class InputPanel extends JPanel implements ActionListener
 {
+    private static final long serialVersionUID = 1L;
     ResourceBundle myResources =
         ResourceBundle.getBundle("picassa.resources.view");
-    private static String RENDER;
-    private static int textFieldSize = 50;
-    private TextHandler handler = null;
+    private static String RENDER = "RENDER";
+    private static int textFieldSize = 35;
+    private JTextField userExpression;
+    private SwingView myView;
 
 
-    public InputPanel (JFrame container, Dimension size)
+    public InputPanel (JFrame container, Dimension size, SwingView swingView)
     {
-        JPanel inputPanel = new JPanel(new BorderLayout());
-        JTextField userExpression =
-            new JTextField(myResources.getString("TextFieldMessage"), textFieldSize);
-        //userExpression.setFont(new Font("Timesroman", font.PLAIN, 12));
-        
-        handler = new TextHandler();
-        userExpression.addActionListener(handler);
-        inputPanel.add(userExpression, BorderLayout.WEST);
-        
-        addButton(inputPanel);
+        super(new BorderLayout());
+        myView = swingView;
+        userExpression = new JTextField("", textFieldSize);
+
+        userExpression.addActionListener(new ActionListener()
+        {
+
+            @Override
+            public void actionPerformed (ActionEvent arg0)
+            {
+                myView.getController()
+                      .evaluateExpression(userExpression.getText());
+            }
+        });
+        this.add(userExpression, BorderLayout.WEST);
+
+        addButton(this);
         setPreferredSize(size);
     }
 
@@ -58,23 +68,22 @@ public class InputPanel extends JComponent implements ActionListener
     }
 
 
+    public String getUserExpression ()
+    {
+        return userExpression.getText();
+    }
+
+
     public void actionPerformed (ActionEvent e)
     {
         if (RENDER.equals(e.getActionCommand()))
         {
-            System.out.println("Render was pressed.");
+            //System.out.println("Render was pressed.");
+            myView.getController().evaluateExpression(userExpression.getText());
         }
         else
         {
             return;
-        }
-    }
-    
-    private class TextHandler implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e)
-        {
-           String currentInput = e.getActionCommand();
         }
     }
 }
