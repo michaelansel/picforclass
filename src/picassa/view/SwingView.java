@@ -3,15 +3,11 @@
  */
 package picassa.view;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 import picassa.model.expression.Expression;
 import picassa.util.Pixmap;
 
@@ -30,9 +26,11 @@ public class SwingView extends AbstractView
 
     private Dimension myCanvasSize = new Dimension(500, 500);
     private Dimension myToolBarSize = new Dimension(myCanvasSize.width, 30);
-    private Dimension myHistoryPanelSize = new Dimension(myCanvasSize.width, 140);
+    private Dimension myHistoryPanelSize =
+        new Dimension(myCanvasSize.width, 140);
     private Dimension myInputPanelSize = new Dimension(myCanvasSize.width, 30);
-    
+
+
     public SwingView ()
     {
         // set properties
@@ -50,8 +48,9 @@ public class SwingView extends AbstractView
         myInputPanel = createInputPanel();
 
         // register GUI components
-        myFrame.getContentPane().setLayout(new BoxLayout(myFrame.getContentPane(), 
-                                                         BoxLayout.Y_AXIS));
+        myFrame.getContentPane()
+               .setLayout(new BoxLayout(myFrame.getContentPane(),
+                                        BoxLayout.Y_AXIS));
         myFrame.getContentPane().add(myToolBar);
         myFrame.getContentPane().add(myCanvas);
         myFrame.getContentPane().add(myHistoryPanel);
@@ -82,7 +81,7 @@ public class SwingView extends AbstractView
         // TODO create history panel for showing past expressions
         // how about a list of HistoryPanelEntries?
         // move to separate class if necessary
-        
+
         return new HistoryPanel(myFrame, myHistoryPanelSize);
         //return null;
     }
@@ -102,7 +101,8 @@ public class SwingView extends AbstractView
     {
         return new ToolBar(myFrame, myToolBarSize, this);
     }
-    
+
+
     @Override
     public Pixmap getDisplay ()
     {
@@ -115,8 +115,9 @@ public class SwingView extends AbstractView
     {
         ((Canvas) myCanvas).setPixmap(image);
     }
-    
-    public String getUserExpression()
+
+
+    public String getUserExpression ()
     {
         return myInputPanel.getUserExpression();
     }

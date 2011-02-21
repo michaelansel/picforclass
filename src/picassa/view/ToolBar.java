@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
+
 /**
  * @author Andrea Scripa
  */
@@ -32,9 +33,9 @@ public class ToolBar extends JPanel implements ActionListener
         JToolBar toolBar = new JToolBar();
         toolBar.setLayout(new BoxLayout(toolBar, BoxLayout.X_AXIS));
         setPreferredSize(size);
-        
+
         addButtons(toolBar);
-        
+
         toolBar.setFloatable(false);
         toolBar.setRollover(true);
         add(toolBar, BorderLayout.CENTER);
@@ -46,7 +47,8 @@ public class ToolBar extends JPanel implements ActionListener
         ResourceBundle myResources =
             ResourceBundle.getBundle("picassa.resources.view");
 
-        JButton button = makeToolBarButton(myResources.getString("Button1"), LOAD);
+        JButton button =
+            makeToolBarButton(myResources.getString("Button1"), LOAD);
         toolBar.add(button);
 
         button = makeToolBarButton(myResources.getString("Button2"), RESET);
@@ -81,16 +83,17 @@ public class ToolBar extends JPanel implements ActionListener
         }
         else if (RESET.equals(e.getActionCommand()))
         {
-           //System.out.println("Reset was pressed.");
-           myView.getController().reset();
-           
+            //System.out.println("Reset was pressed.");
+            myView.getController().reset();
+
         }
         else if (FRACTALIZE.equals(e.getActionCommand()))
         {
             //System.out.println("Fractalize was pressed.");
             String userExpression = myView.getUserExpression();
-            myView.getController().evaluateExpression("fractalize:" + userExpression);
-            
+            myView.getController().evaluateExpression("fractalize:" +
+                                                      userExpression);
+
         }
         else if (QUIT.equals(e.getActionCommand()))
         {
