@@ -15,7 +15,7 @@ import picassa.util.Vector;
  * @author Michael Ansel
  * @author Max Egan
  */
-public class AvgFunction extends ThreeArgFunction
+public class AvgFunction extends FunctionExpression
 {
     public final static String FUNCTION_NAME = "avg";
 
@@ -39,9 +39,11 @@ public class AvgFunction extends ThreeArgFunction
 
 
 	@Override
-	protected Number evaluateValues(Number valueA, Number valueB, Number valueC) {
-		 double sum = valueA.doubleValue() + valueB.doubleValue() + valueC.doubleValue();
-		 return sum / 3.0;
+	protected Number evaluateValues(Number... values) {
+		 double sum = 0;
+		 for(Number value : values)
+		     sum += value.doubleValue();
+		 return sum / values.length;
 	}
 
 }

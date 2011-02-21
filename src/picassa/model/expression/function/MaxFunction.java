@@ -15,7 +15,7 @@ import picassa.util.Vector;
  * @author Michael Ansel
  * @author Max Egan
  */
-public class MaxFunction extends ThreeArgFunction
+public class MaxFunction extends FunctionExpression
 {
     public final static String FUNCTION_NAME = "max";
 
@@ -39,9 +39,11 @@ public class MaxFunction extends ThreeArgFunction
 
 
 	@Override
-	protected Number evaluateValues(Number valueA, Number valueB, Number valueC) {
-		 double min = Math.min(valueA.doubleValue(), valueB.doubleValue());
-	        return Math.max(min, valueC.doubleValue());
+	protected Number evaluateValues(Number...values) {
+	    double max = values[0].doubleValue();
+        for(Number value : values)
+            max = Math.max(max, value.doubleValue());
+        return max;
 	}
 
 }
